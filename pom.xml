@@ -11,7 +11,7 @@
 	<dependencies>
 
 		<dependency>
-			<groupId>org.atenea</groupId>
+			<groupId>org.scuadra.atenea</groupId>
 			<artifactId>DataAccess</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
