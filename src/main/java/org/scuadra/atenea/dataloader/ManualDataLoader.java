@@ -9,7 +9,9 @@ public class ManualDataLoader implements DataLoaderInterface {
 		
 		NeuralDataAccess.init();
 		
-		String[] nodes = { "hola", "Hola, como estas?" };
+		String[] nodes = { 
+				"hola", "Hola, como estas?",
+				"quien sos", "Mi nombre es Atenea. No soy muy famosa ahora, pero dentro de muy poco me conocera todo el mundo."};
 
 		NodeDefinition nodeDefinition = new NodeDefinition();
 		
