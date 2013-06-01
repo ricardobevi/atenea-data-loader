@@ -6,6 +6,10 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>DataLoader</name>
 	<description>Loads data into the neural database.</description>
+	
+	<properties>
+		<main.class>org.scuadra.atenea.dataloader.Main</main.class>
+	</properties>
 
 	<parent>
 		<groupId>AteneaPom</groupId>
