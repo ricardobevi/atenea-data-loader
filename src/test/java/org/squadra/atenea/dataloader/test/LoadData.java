@@ -1,4 +1,4 @@
-package org.scuadra.atenea.dataloader.test;
+package org.squadra.atenea.dataloader.test;
 
 import org.squadra.atenea.dataloader.DataLoaderInterface;
 import org.squadra.atenea.dataloader.ManualDataLoader;
