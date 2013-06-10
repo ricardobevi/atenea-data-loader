@@ -1,7 +1,7 @@
 package org.scuadra.atenea.dataloader.test;
 
-import org.scuadra.atenea.dataloader.DataLoaderInterface;
-import org.scuadra.atenea.dataloader.ManualDataLoader;
+import org.squadra.atenea.dataloader.DataLoaderInterface;
+import org.squadra.atenea.dataloader.ManualDataLoader;
 
 public class LoadData {
 	

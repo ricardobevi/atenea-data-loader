@@ -1,4 +1,4 @@
-package org.scuadra.atenea.dataloader;
+package org.squadra.atenea.dataloader;
 
 public interface DataLoaderInterface {
 	public void loadData(String source);

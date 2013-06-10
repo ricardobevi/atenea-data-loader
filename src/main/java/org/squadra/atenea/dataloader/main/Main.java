@@ -1,6 +1,6 @@
-package org.scuadra.atenea.dataloader.main;
+package org.squadra.atenea.dataloader.main;
 
-import org.scuadra.atenea.dataloader.ManualDataLoader;
+import org.squadra.atenea.dataloader.ManualDataLoader;
 
 public class Main {
 

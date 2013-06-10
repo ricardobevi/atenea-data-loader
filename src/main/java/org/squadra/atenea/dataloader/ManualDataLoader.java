@@ -1,7 +1,7 @@
-package org.scuadra.atenea.dataloader;
+package org.squadra.atenea.dataloader;
 
-import org.atenea.data.definition.NodeDefinition;
-import org.atenea.data.server.NeuralDataAccess;
+import org.squadra.atenea.data.definition.NodeDefinition;
+import org.squadra.atenea.data.server.NeuralDataAccess;
 
 public class ManualDataLoader implements DataLoaderInterface {
 	
