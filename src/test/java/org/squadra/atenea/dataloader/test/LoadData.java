@@ -7,9 +7,9 @@ public class LoadData {
 	
 	public static void main(String[] args) {
 		
-		DataLoaderInterface manualLoder = new ManualDataLoader();
+		DataLoaderInterface loder = new ManualDataLoader();
 		
-		manualLoder.loadData("");
+		loder.loadData("http://es.wikipedia.org/wiki/Carabanchel");
 		
 		while(true);
 		

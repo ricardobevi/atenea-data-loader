@@ -5,11 +5,13 @@ import org.squadra.atenea.dataloader.ManualDataLoader;
 public class Main {
 
 	public static void main(String args[]) {
-		ManualDataLoader manualDataLoader = new ManualDataLoader();
+		ManualDataLoader dataLoader = new ManualDataLoader();
 		
-		manualDataLoader.loadData("");
+		dataLoader.loadData("http://es.wikipedia.org/wiki/Carabanchel");
 		
-		System.exit(0);		
+		while(true);
+		
+		//System.exit(0);		
 	}
 
 	
