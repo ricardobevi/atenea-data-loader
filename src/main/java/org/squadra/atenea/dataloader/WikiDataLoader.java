@@ -8,6 +8,7 @@ import org.apache.tika.parser.ParseContext;
 import org.apache.tika.parser.html.HtmlParser;
 import org.apache.tika.sax.BodyContentHandler;
 import org.squadra.atenea.data.definition.NodeDefinition;
+import org.squadra.atenea.data.server.NeuralDataAccess;
 import org.xml.sax.ContentHandler;
 
 public class WikiDataLoader implements DataLoaderInterface {
@@ -27,10 +28,9 @@ public class WikiDataLoader implements DataLoaderInterface {
 
 			String web = handler.toString();
 			
-			String[] nodes = web.split(" *|");
+			String[] nodes = web.split(" ");
 			
-			
-			
+			NeuralDataAccess.init();
 			
 			NodeDefinition nodeDefinition = new NodeDefinition();
 			
