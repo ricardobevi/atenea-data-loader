@@ -11,7 +11,9 @@ public class LoadData {
 		
 		loder.loadData("http://es.wikipedia.org/wiki/Carabanchel");
 		
-		while(true);
+		//while(true);
+		
+		System.exit(0);
 		
 	}
 	
