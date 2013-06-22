@@ -11,16 +11,19 @@ public class ManualDataLoader implements DataLoaderInterface {
 		
 		String[] nodes = { 
 			"hola", "Hola, ¿cómo estás?",
-			"bien y vos", "Muy bien ¿cuál es tu nombre?",
-			"leandro", "Que lindo nombre",
-			"lucas", "Un gusto Lucas",
-			"facundo", "Que feo nombre",
-			"ricardo", "Hola Ricardo",
-			"quién sos","Mi nombre es Atenea, un gusto conocerte.",
+			"bien","Me alegro por tí.",
+			"bien y tú", "Muy bien ¿cuál es tu nombre?",
+			"leandro", "Que lindo nombre.",
+			"lucas", "Un gusto Lucas.",
+			"facundo", "Que feo nombre.",
+			"ricardo", "Hola Ricardo.",
 			"quién eres","Mi nombre es Atenea, un gusto conocerte.",
-			"como te llamas","Mi nombre es Atenea.",
-			"que edad tienes","Aun soy muy joven, tengo apenas unos meses.",
-			"me gusta hablar con vos","Gracias! a mi tambien me gusta hablar con vos."
+			"cómo te llamas","Mi nombre es Atenea.",
+			"qué edad tienes","Aun soy muy joven, tengo apenas unos meses.",
+			"me gusta hablar contigo","¡Gracias! a mi tambien me gusta hablar con vos.",
+			"no","Que negativo eres.",
+			"si","Me gusta esa respuesta.",
+			"gracias","Por nada."
 		};
 
 		NodeDefinition nodeDefinition = new NodeDefinition();
