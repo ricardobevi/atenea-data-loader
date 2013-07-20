@@ -23,7 +23,12 @@ public class ManualDataLoader implements DataLoaderInterface {
 			"me gusta hablar contigo","¡Gracias! a mi tambien me gusta hablar con vos.",
 			"no","Que negativo eres.",
 			"si","Me gusta esa respuesta.",
-			"gracias","Por nada."
+			"gracias","Por nada.",
+			"abrir panel de control", "Entendido",
+			"abrir bloc de notas", "Entendido",
+			"cerrar bloc de notas", "Entendido",
+			"abrir administrador de tareas", "Entendido",
+			"qué hora es", "Son las "
 		};
 
 		NodeDefinition nodeDefinition = new NodeDefinition();
