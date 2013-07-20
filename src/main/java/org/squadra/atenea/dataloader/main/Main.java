@@ -7,7 +7,7 @@ public class Main {
 
 	public static void main(String args[]) {
 		
-		WikiDataLoader dataLoader = new WikiDataLoader();
+		ManualDataLoader dataLoader = new ManualDataLoader();
 		
 		dataLoader.loadData("http://es.wikipedia.org/wiki/Los_Simpson");
 		
