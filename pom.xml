@@ -16,6 +16,12 @@
 
 		<dependency>
 			<groupId>org.squadra.atenea</groupId>
+			<artifactId>WordClassifier</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.squadra.atenea</groupId>
 			<artifactId>DataAccess</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>

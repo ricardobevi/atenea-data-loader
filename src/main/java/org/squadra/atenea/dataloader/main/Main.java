@@ -1,7 +1,6 @@
 package org.squadra.atenea.dataloader.main;
 
 import org.squadra.atenea.dataloader.ManualDataLoader;
-import org.squadra.atenea.dataloader.WikiDataLoader;
 
 public class Main {
 
