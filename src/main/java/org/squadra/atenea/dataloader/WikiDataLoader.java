@@ -40,7 +40,7 @@ public class WikiDataLoader implements DataLoaderInterface {
 				
 				for (Integer i = 0; i < nodes.length - 1; i++) {
 					
-					nodeDefinition.relateWords(nodes[i], nodes[i + 1]);
+					//nodeDefinition.relateWords(nodes[i], nodes[i + 1]);
 					
 				}
 

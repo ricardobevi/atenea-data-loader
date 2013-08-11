@@ -1,18 +1,23 @@
 package org.squadra.atenea.dataloader.main;
 
-import org.squadra.atenea.dataloader.ManualDataLoader;
+import org.squadra.atenea.dataloader.WikipediaBulkLoader;
 
 public class Main {
 
 	public static void main(String args[]) {
-		
-		ManualDataLoader dataLoader = new ManualDataLoader();
-		
-		dataLoader.loadData("http://es.wikipedia.org/wiki/Los_Simpson");
-		
-		while(true);
-		
-		//System.exit(0);		
+		WikipediaBulkLoader.run();
 	}
 	
+	
+	//Devuelve todo
+//	START n=node(*)    
+//	MATCH (n)-[r]->(m)
+//  RETURN n.word as from, r.id as sentence, r.seq as `->`, m.word as to;
+	
+	//devuelve una oracion
+//	START n=node(*)
+//	MATCH (n)-[r]->(m)
+//	WHERE r.id=3
+//	RETURN n.word as from, r.id as sentence, r.seq as `->`, m.word as to
+//	ORDER BY r.seq;
 }

@@ -10,17 +10,17 @@ public class ManualDataLoader implements DataLoaderInterface {
 		NeuralDataAccess.init();
 		
 		String[] nodes = { 
-			"hola", "Hola, ¿cómo estás?",
-			"bien","Me alegro por tí.",
-			"bien y tú", "Muy bien ¿cuál es tu nombre?",
+			"hola", "Hola, ï¿½cï¿½mo estï¿½s?",
+			"bien","Me alegro por tï¿½.",
+			"bien y tï¿½", "Muy bien ï¿½cuï¿½l es tu nombre?",
 			"leandro", "Que lindo nombre.",
 			"lucas", "Un gusto Lucas.",
 			"facundo", "Que feo nombre.",
 			"ricardo", "Hola Ricardo.",
-			"quién eres","Mi nombre es Atenea, un gusto conocerte.",
-			"cómo te llamas","Mi nombre es Atenea.",
-			"qué edad tienes","Aun soy muy joven, tengo apenas unos meses.",
-			"me gusta hablar contigo","¡Gracias! a mi tambien me gusta hablar con vos.",
+			"quiï¿½n eres","Mi nombre es Atenea, un gusto conocerte.",
+			"cï¿½mo te llamas","Mi nombre es Atenea.",
+			"quï¿½ edad tienes","Aun soy muy joven, tengo apenas unos meses.",
+			"me gusta hablar contigo","ï¿½Gracias! a mi tambien me gusta hablar con vos.",
 			"no","Que negativo eres.",
 			"si","Me gusta esa respuesta.",
 			"gracias","Por nada.",
@@ -28,7 +28,7 @@ public class ManualDataLoader implements DataLoaderInterface {
 			"abrir bloc de notas", "Entendido",
 			"cerrar bloc de notas", "Entendido",
 			"abrir administrador de tareas", "Entendido",
-			"qué hora es", "Son las "
+			"quï¿½ hora es", "Son las "
 		};
 
 		NodeDefinition nodeDefinition = new NodeDefinition();
@@ -39,7 +39,7 @@ public class ManualDataLoader implements DataLoaderInterface {
 			
 			for (Integer i = 0; i < nodes.length - 1; i++) {
 				
-				nodeDefinition.relateWords(nodes[i], nodes[i + 1]);
+				//nodeDefinition.relateWords(nodes[i], nodes[i + 1]);
 				
 			}
 
