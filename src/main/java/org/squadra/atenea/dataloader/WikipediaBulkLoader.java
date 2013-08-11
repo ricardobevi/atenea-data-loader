@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import lombok.extern.log4j.Log4j;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.squadra.atenea.base.word.*;
 import org.squadra.atenea.data.definition.NodeDefinition;
 import org.squadra.atenea.data.server.NeuralDataAccess;
@@ -16,25 +17,37 @@ import org.squadra.atenea.data.server.NeuralDataAccess;
 public class WikipediaBulkLoader {
 
 	public static void run() {
-		int from = 0, to = 100;
+		//Cargo de a 10000 registros de mysql
+		int from = 0, to = 10000;
 		long numberSentence = 0;
 		ArrayList<String> articles;
-		//do {
-		{
+		do {
+			
+			//Cargo registros
 			articles = loadRange(from, to);
 			from = to;
 			to += to;
 
 			NeuralDataAccess.init();
-
-			for (String article : articles) {
-				String[] sentences = article.split("\\.");
-				for (String sentence : sentences) {
-					sentence = removeUnnecessaryChars(sentence);
-					write(sentence, numberSentence++);
+			String actualSentence = null;
+			try{
+				for (String article : articles) {
+					//Separo las oraciones del articulo
+					String[] sentences = article.split("\\.");
+					for (String sentence : sentences) {
+						actualSentence = sentence;
+						sentence = removeUnnecessaryChars(sentence);
+						sentence = StringEscapeUtils.unescapeHtml(sentence);
+						//Escribo en neo4j
+						write(sentence.trim(), numberSentence++);
+					}
 				}
+			}catch(Exception ex)
+			{
+				log.error(actualSentence);
 			}
-		} //while (!articles.isEmpty());
+			log.info("" + to + "REGISTROS");
+		} while (!articles.isEmpty());
 	}
 
 	private static ArrayList<String> loadRange(Integer from, Integer to) {
@@ -44,6 +57,9 @@ public class WikipediaBulkLoader {
 			Connection conexion = DriverManager.getConnection(
 					"jdbc:mysql://localhost/wiki", "root", "");
 			Statement s = conexion.createStatement();
+
+			log.debug("Leyendo de la base de datos. Puede tardar...");
+
 			ResultSet rs = s.executeQuery("select cuerpo from articulo limit "
 					+ from + " , " + to);
 
@@ -61,6 +77,7 @@ public class WikipediaBulkLoader {
 	}
 
 	private static void write(String sentence, long numberSentence) {
+		//Separo las palabras de la oracion
 		String[] words = sentence.split("\\ ");
 		ArrayList<Word> results = new ArrayList<Word>();
 
@@ -77,6 +94,7 @@ public class WikipediaBulkLoader {
 
 		try {
 
+			//Relaciono las palabras
 			Integer i = 0;
 			for (; i < results.size() - 1; i++) {
 				nodeDefinition.relateWords(results.get(i), results.get(i + 1),
@@ -99,7 +117,7 @@ public class WikipediaBulkLoader {
 	}
 
 	private static String removeUnnecessaryChars(String sentence) {
-		sentence = sentence.replaceAll("[,\\(\\);:\\-\\/!?¡¿]", "");
+		sentence = sentence.replaceAll("[,\\(\\);:\\-\\/!?¡¿\\]", "");
 		sentence = sentence.replaceAll("\\<.*?>", "");
 		return sentence;
 	}
