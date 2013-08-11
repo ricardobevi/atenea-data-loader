@@ -12,7 +12,7 @@ public class WikiRaeDataLoader implements DataLoaderInterface {
 	public void loadData(String source) {
 
 		WordClassifier WC = new WordClassifier();
-		List<Node> results = new List<Node>();
+		//List<Node> results = new List<Node>();
 
 		// consume base mysql
 		
@@ -21,7 +21,7 @@ public class WikiRaeDataLoader implements DataLoaderInterface {
 		
 		// for cada palabra
 		
-			results = WC.classifyWord("correr");
+			//results = WC.classifyWord("correr");
 			
 		// end for
 		
