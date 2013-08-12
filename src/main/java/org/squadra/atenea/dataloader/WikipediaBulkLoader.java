@@ -15,22 +15,22 @@ import org.squadra.atenea.data.server.NeuralDataAccess;
 
 @Log4j
 public class WikipediaBulkLoader {
-
+	
 	public static void run() {
-		//Cargo de a 10000 registros de mysql
-		int from = 0, to = 10000;
+		//Cargo de a 100000 registros de mysql
+		int from = 0, diff = 100000;
 		long numberSentence = 0;
-		ArrayList<String> articles;
+		ArrayList<String> articles = null;
+		NeuralDataAccess.init();
 		do {
-			
-			//Cargo registros
-			articles = loadRange(from, to);
-			from = to;
-			to += to;
 
-			NeuralDataAccess.init();
+			//Cargo registros
+			articles = loadRange(from, diff);
+			from += diff;
+			
 			String actualSentence = null;
 			try{
+				System.out.println("Escribiendo");
 				for (String article : articles) {
 					//Separo las oraciones del articulo
 					String[] sentences = article.split("\\.");
@@ -42,15 +42,18 @@ public class WikipediaBulkLoader {
 						write(sentence.trim(), numberSentence++);
 					}
 				}
+				System.out.println("Fin de Escritura");
 			}catch(Exception ex)
 			{
-				log.error(actualSentence);
+				System.out.println(actualSentence);
+				ex.printStackTrace();
 			}
-			log.info("" + to + "REGISTROS");
+			System.out.println("" + from + " REGISTROS");
 		} while (!articles.isEmpty());
+		NeuralDataAccess.stop();
 	}
 
-	private static ArrayList<String> loadRange(Integer from, Integer to) {
+	private static ArrayList<String> loadRange(Integer from, Integer size) {
 		ArrayList<String> allSentences = new ArrayList<String>();
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -58,21 +61,21 @@ public class WikipediaBulkLoader {
 					"jdbc:mysql://localhost/wiki", "root", "");
 			Statement s = conexion.createStatement();
 
-			log.debug("Leyendo de la base de datos. Puede tardar...");
+			System.out.println("Leyendo de la base de datos.");
 
 			ResultSet rs = s.executeQuery("select cuerpo from articulo limit "
-					+ from + " , " + to);
+					+ from + " , " + size);
 
+			
 			while (rs.next()) {
 				allSentences.add(rs.getString(1));
 			}
-
 			conexion.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		System.out.println("Fin de Lectura");
 		return allSentences;
 	}
 
@@ -91,7 +94,7 @@ public class WikipediaBulkLoader {
 		// escribir
 		NodeDefinition nodeDefinition = new NodeDefinition();
 		nodeDefinition.beginTransaction();
-
+		
 		try {
 
 			//Relaciono las palabras
@@ -112,13 +115,14 @@ public class WikipediaBulkLoader {
 		} finally {
 			nodeDefinition.endTransaction();
 		}
-
+		
 
 	}
 
 	private static String removeUnnecessaryChars(String sentence) {
-		sentence = sentence.replaceAll("[,\\(\\);:\\-\\/!?¡¿\\]", "");
+		sentence = sentence.replaceAll("[,\\(\\);:\\-\\/!?¡¿]", "");
 		sentence = sentence.replaceAll("\\<.*?>", "");
+		sentence = sentence.replaceAll("\\\\", "");
 		return sentence;
 	}
 }
