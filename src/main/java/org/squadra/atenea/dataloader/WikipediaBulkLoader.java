@@ -15,41 +15,58 @@ import org.squadra.atenea.data.server.NeuralDataAccess;
 
 @Log4j
 public class WikipediaBulkLoader {
-	
+
+	static private NodeDefinition nodeDefinition = new NodeDefinition();
+
 	public static void run() {
-		//Cargo de a 100000 registros de mysql
-		int from = 0, diff = 100000;
+		//Cargo de a 1000 registros de mysql
+		int from = 0, diff = 1000;
 		long numberSentence = 0;
 		ArrayList<String> articles = null;
+
 		NeuralDataAccess.init();
 		do {
 
 			//Cargo registros
 			articles = loadRange(from, diff);
 			from += diff;
-			
+
+			nodeDefinition.beginTransaction();			
+			System.out.println("Escribiendo hasta el registro " + from);
+
 			String actualSentence = null;
-			try{
+			try
+			{
 				System.out.println("Escribiendo");
+
 				for (String article : articles) {
-					//Separo las oraciones del articulo
-					String[] sentences = article.split("\\.");
-					for (String sentence : sentences) {
-						actualSentence = sentence;
-						sentence = removeUnnecessaryChars(sentence);
-						sentence = StringEscapeUtils.unescapeHtml(sentence);
-						//Escribo en neo4j
-						write(sentence.trim(), numberSentence++);
+					if (article != null)
+					{
+						//Separo las oraciones del articulo
+						String[] sentences = article.split("\\.");
+						for (String sentence : sentences) {
+
+							actualSentence = article;
+							sentence = removeUnnecessaryChars(sentence).trim();
+							sentence = StringEscapeUtils.unescapeHtml(sentence);
+							//Escribo en neo4j
+							write(sentence, numberSentence++);
+						}
 					}
 				}
+
 				System.out.println("Fin de Escritura");
-			}catch(Exception ex)
+			}
+			catch(Exception ex)
 			{
+				nodeDefinition.endTransaction();
 				System.out.println(actualSentence);
 				ex.printStackTrace();
 			}
-			System.out.println("" + from + " REGISTROS");
+			nodeDefinition.endTransaction();
+			
 		} while (!articles.isEmpty());
+
 		NeuralDataAccess.stop();
 	}
 
@@ -63,10 +80,10 @@ public class WikipediaBulkLoader {
 
 			System.out.println("Leyendo de la base de datos.");
 
-			ResultSet rs = s.executeQuery("select cuerpo from articulo limit "
+			ResultSet rs = s.executeQuery("select cuerpo from articulo where subtitulo is null limit "
 					+ from + " , " + size);
 
-			
+
 			while (rs.next()) {
 				allSentences.add(rs.getString(1));
 			}
@@ -80,6 +97,10 @@ public class WikipediaBulkLoader {
 	}
 
 	private static void write(String sentence, long numberSentence) {
+
+		//Separo las comas para que queden como una palabra
+		sentence = sentence.replaceAll("\\,\\ ", "\\ \\,\\ ");
+
 		//Separo las palabras de la oracion
 		String[] words = sentence.split("\\ ");
 		ArrayList<Word> results = new ArrayList<Word>();
@@ -91,12 +112,8 @@ public class WikipediaBulkLoader {
 			results.add(w);
 		}
 
-		// escribir
-		NodeDefinition nodeDefinition = new NodeDefinition();
-		nodeDefinition.beginTransaction();
-		
+		// escribir	
 		try {
-
 			//Relaciono las palabras
 			Integer i = 0;
 			for (; i < results.size() - 1; i++) {
@@ -111,16 +128,13 @@ public class WikipediaBulkLoader {
 		}
 		catch (Exception e) {
 			nodeDefinition.endTransaction();
-
-		} finally {
-			nodeDefinition.endTransaction();
+			e.printStackTrace();
 		}
-		
 
 	}
 
 	private static String removeUnnecessaryChars(String sentence) {
-		sentence = sentence.replaceAll("[,\\(\\);:\\-\\/!?¡¿]", "");
+		sentence = sentence.replaceAll("[\\(\\);:\\-\\/!?¡¿\\\"]", "");
 		sentence = sentence.replaceAll("\\<.*?>", "");
 		sentence = sentence.replaceAll("\\\\", "");
 		return sentence;
