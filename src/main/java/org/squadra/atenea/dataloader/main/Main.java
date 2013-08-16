@@ -1,11 +1,13 @@
 package org.squadra.atenea.dataloader.main;
 
+import org.squadra.atenea.dataloader.WikiEnhancedBulkLoader;
 import org.squadra.atenea.dataloader.WikipediaBulkLoader;
 
 public class Main {
 
 	public static void main(String args[]) {
 		WikipediaBulkLoader.run();
+		//WikiEnhancedBulkLoader.run();
 	}
 	
 	
