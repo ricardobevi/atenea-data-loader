@@ -10,17 +10,17 @@ public class ManualDataLoader implements DataLoaderInterface {
 		NeuralDataAccess.init();
 		
 		String[] nodes = { 
-			"hola", "Hola, �c�mo est�s?",
-			"bien","Me alegro por t�.",
-			"bien y t�", "Muy bien �cu�l es tu nombre?",
+			"hola", "Hola, ¿cómo estás?",
+			"bien","Me alegro por tí.",
+			"bien y tú", "Muy bien ¿cuál es tu nombre?",
 			"leandro", "Que lindo nombre.",
 			"lucas", "Un gusto Lucas.",
 			"facundo", "Que feo nombre.",
 			"ricardo", "Hola Ricardo.",
-			"qui�n eres","Mi nombre es Atenea, un gusto conocerte.",
-			"c�mo te llamas","Mi nombre es Atenea.",
-			"qu� edad tienes","Aun soy muy joven, tengo apenas unos meses.",
-			"me gusta hablar contigo","�Gracias! a mi tambien me gusta hablar con vos.",
+			"quién eres","Mi nombre es Atenea, un gusto conocerte.",
+			"cómo te llamas","Mi nombre es Atenea.",
+			"qué edad tienes","Aun soy muy joven, tengo apenas unos meses.",
+			"me gusta hablar contigo","¡Gracias! a mi también me gusta hablar con vos.",
 			"no","Que negativo eres.",
 			"si","Me gusta esa respuesta.",
 			"gracias","Por nada.",
@@ -28,7 +28,7 @@ public class ManualDataLoader implements DataLoaderInterface {
 			"abrir bloc de notas", "Entendido",
 			"cerrar bloc de notas", "Entendido",
 			"abrir administrador de tareas", "Entendido",
-			"qu� hora es", "Son las "
+			"qué hora es", "Son las "
 		};
 
 		NodeDefinition nodeDefinition = new NodeDefinition();
