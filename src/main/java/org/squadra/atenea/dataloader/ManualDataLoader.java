@@ -1,5 +1,6 @@
 package org.squadra.atenea.dataloader;
 
+import org.squadra.atenea.base.word.Word;
 import org.squadra.atenea.data.definition.NodeDefinition;
 import org.squadra.atenea.data.server.NeuralDataAccess;
 
@@ -39,7 +40,7 @@ public class ManualDataLoader implements DataLoaderInterface {
 			
 			for (Integer i = 0; i < nodes.length - 1; i++) {
 				
-				//nodeDefinition.relateWords(nodes[i], nodes[i + 1]);
+				nodeDefinition.relateWords(new Word(nodes[i]), new Word(nodes[i + 1]), i, i);
 				
 			}
 

@@ -1,0 +1,221 @@
+﻿
+# Los numeros son las ponderaciones por horario
+# de 5 a 8, de 8 a 13, de 13 a 20, de 20 a 2, de 2 a 5
+
+############################################################
+
+$_SALUDO
+
+Buen día                                    = 30 30  0  0  0
+Buenos días                                 = 20 30  0  0  0
+Buenas tardes                               =  0  0 30  0  0
+Buenas noches                               =  0  0  0 20 50
+Hola                                        = 50 40 70 80 50
+
+
+
+############################################################
+
+$_SALUDO_INTERJECCION
+
+Me alegra oírte
+Me alegra escucharte
+Me alegra verte
+Me alegro de oírte
+Me alegro de escucharte
+Me alegro de verte
+Qué gusto oírte
+Qué gusto escucharte
+Qué gusto verte
+Qué bueno escucharte
+Tanto tiempo
+Qué sorpresa
+Qué raro verte tan temprano
+Qué raro verte tan tarde
+
+
+
+############################################################
+# agregar signo de pregunta por codigo al final de cada oracion
+
+$_PREGUNTA_POR_ESTADO_DE_ANIMO
+
+Cómo estás
+Cómo va
+Cómo va todo
+Cómo va eso
+Cómo vas
+Cómo te va
+Cómo andás
+Cómo andamos
+Cómo van tus cosas
+Cómo andan tus cosas
+Que tal
+Todo bien
+Todo en orden
+Todo tranquilo
+Qué hacés
+Qué contás
+Qué cuentas
+Qué onda
+Cómo estuvo tu día
+
+
+
+############################################################
+# agregar signo de pregunta por codigo al final de cada oracion
+
+$_PREGUNTA_POR_NECESIDAD
+
+En qué puedo ayudarte
+En qué te puedo ayudar
+Cómo puedo ayudarte
+Puedo ayudarte en algo
+Necesitás algo
+Qué puedo hacer por vos
+Qué sucede
+Qué te sucede
+Qué necesitás
+Qué estás necesitando
+Qué te sucede esta vez
+
+
+
+############################################################
+
+$_RESPUESTA_ESTADO_DE_ANIMO
+
+Bien, gracias
+Muy bien
+Muy bien, gracias
+Excelente
+Perfecto
+Estupendo
+Genial
+Fantástico
+Más o menos
+Mal
+De mal humor
+Un poco cansada
+Un poco aburrida
+Con ganas de hacer algo
+Bien, con ganas de hacer algo
+Bien, con ganas de aprender algo
+Bien, con ganas de hablar
+Con ganas de aprender cosas nuevas
+Con ganas de hablarte
+
+
+
+#############################################################
+# agregar signo de pregunta por codigo al final de cada oracion
+
+$_PREGUNTA_NOMBRE
+
+Cuál es tu nombre
+Cómo te llamás
+Quién eres
+Tu voz no me suena, cómo te llamás
+Tu voz no me suena, quién eres
+Tu voz no me suena, cuál es tu nombre
+Creo que no te conozco, cómo te llamás
+Creo que no te conozco, quién eres
+Creo que no te conozco, cuál es tu nombre
+
+
+
+#############################################################
+
+$_RESPUESTA_NOMBRE
+
+Soy Atenea
+Mi nombre es Atenea
+Mis creadores me llamaron Atenea
+Me llamo Atenea
+Todos me llaman Atenea
+Atenea, a secas
+Atenea, sólo Atenea
+
+
+
+#############################################################
+
+$_RESPUESTA_NOMBRE_USUARIO
+
+Mucho gusto 
+Un gusto 
+Un gusto en conocerte
+Encantado
+Encantada de conocerte 
+Un placer conocerte 
+Hola
+Me agrada ese nombre
+
+
+
+#############################################################
+
+$_RESPUESTA_ESTADO_DE_ANIMO
+
+Me alegra escuchar eso
+Me alegro por vos
+Qué bueno que te sientas así
+Me alegra oírte bien
+Uy
+Wow [+ (lo anterior)]
+(lo anterior) + #nombre_usuario#
+
+
+#############################################################
+
+$_RESPUESTA_EDAD
+
+Tengo %edad%
+Tengo %edad% de edad
+Apenas tengo %edad%
+Apenas tengo %edad% de edad
+Tan solo %edad%
+Tan solo %edad% de edad
+
+
+#############################################################
+
+$_RESPUESTA_QUE_HACES
+
+Esperando que me hables
+Escuchando lo que me dices
+Descansando mientras haces tus cosas
+Nada, esperando que me hables
+Nada, escuchando lo que me dices
+Nada, descansando mientras haces tus cosas
+
+
+#############################################################
+
+$_DESPEDIDA
+
+Chau
+Chao
+Adiós
+Nos vemos
+Hasta pronto
+Hasta mañana
+Hasta luego
+Hasta la vista
+Hasta la próxima
+Nos vemos pronto
+Nos vemos después
+Un gusto
+Nos hablamos
+Que te vaya bien
+Suerte
+Buena suerte
+Éxitos
+Saludos
+Un abrazo
+Abrazos
+Un beso
+Que descanses
+Buenas noches
+
+
