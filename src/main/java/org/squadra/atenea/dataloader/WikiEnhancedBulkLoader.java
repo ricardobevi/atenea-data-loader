@@ -118,8 +118,8 @@ public class WikiEnhancedBulkLoader {
 								word2 = word;
 							else {
 								
-								Word wordObject1 = new Word(word1, "", "", "", "", "", "", "", "", true);
-								Word wordObject2 = new Word(word2, "", "", "", "", "", "", "", "", true);
+								Word wordObject1 = new Word(word1, "");
+								Word wordObject2 = new Word(word2, "");
 								
 								nodeDefinition.relateWords(
 										wordObject1, 
