@@ -77,7 +77,7 @@ public class DialogLoader implements DataLoaderInterface {
 					String[] dialogResponse = line.split("=");
 					
 					Sentence sentence = new Parser().parse(dialogResponse[0].trim());
-					ArrayList<Word> dialogResponseWords = sentence.getAllWords();
+					ArrayList<Word> dialogResponseWords = sentence.getAllWords(true);
 					
 					Integer[] dialogResponseProb = {10,10,10,10,10};
 					
@@ -96,7 +96,7 @@ public class DialogLoader implements DataLoaderInterface {
 					if (dialogResponseWords.size() > 0) {
 						// Relaciono la primera palabra de la respuesta con el tipo
 						nodeDefinition.relateDialogWords(
-								new Word(dialogTypeNode, ""), 
+								new Word(dialogTypeNode), 
 								dialogResponseWords.get(0), 
 								sentenceId, 0, dialogResponseProb);
 						

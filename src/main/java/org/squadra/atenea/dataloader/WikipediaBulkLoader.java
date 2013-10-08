@@ -106,7 +106,7 @@ public class WikipediaBulkLoader {
 		ArrayList<Word> results = new ArrayList<Word>();
 
 		for (String word : words) {
-			Word w = new Word(word, "", "", "", "", "", "", "", "", true);
+			Word w = new Word(word, "");
 			// WordClassifier classifier = new WordClassifier();
 			// results.add(classifier.classifyWord(word));
 			results.add(w);
@@ -123,7 +123,7 @@ public class WikipediaBulkLoader {
 
 			// Relaciono la ultima palabra con "."
 			nodeDefinition.relateWords(results.get(results.size() - 1),
-					new Word(".", "", "", "", "", "", "", "", "", true),
+					new Word(".", ""),
 					numberSentence, ++i);
 		}
 		catch (Exception e) {
