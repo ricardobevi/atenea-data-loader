@@ -13,10 +13,12 @@
 $_SALUDO
 
 Buen día .                                      = 30 30  0  0  0
-Buenos días .                                   = 20 30  0  0  0
-Buenas tardes .                                 =  0  0 30  0  0
-Buenas noches .                                 =  0  0  0 30 50
-Hola .                                          = 50 40 70 70 50
+Buenos días .                                   = 30 30  0  0  0
+Buenas tardes .                                 =  0  0 40  0  0
+Buenas noches .                                 =  0  0  0 20 40
+Hola .                                          = 50 50 50 50 50
+Buenas .                                        = 10 10 10 10 10
+Aloja .                                         =  5  5  5  5  5
 
 
 ################################################################
@@ -46,7 +48,7 @@ Otra vez por aquí ?                             = 10 10 10 20 20
 
 ################################################################
 
-$_PREGUNTA_POR_ESTADO_DE_ANIMO
+$_PREGUNTA_ESTADO_ANIMO
 
 Cómo estás ?                                    = 80 80 80 80 80
 Cómo va ?                                       = 20 20 20 20 20
@@ -63,6 +65,7 @@ Que tal ?                                       = 50 50 50 50 50
 Todo bien ?                                     = 30 30 30 30 30
 Todo en orden ?                                 = 40 40 40 40 40
 Todo tranquilo ?                                = 10 10 10 10 10
+Todo piola ?                                    =  0  0 10 10  0
 Qué hacés ?                                     =  0 10 20 10  0
 Qué contás ?                                    =  0 10 20 10  0
 Qué cuentas ?                                   =  0 10 20 10  0
@@ -72,7 +75,7 @@ Cómo estuvo tu día ?                            =  0  0  0 60 40
 
 ################################################################
 
-$_PREGUNTA_POR_NECESIDAD
+$_PREGUNTA_NECESIDAD
 
 En qué puedo ayudarte ?                         = 60 60 60 60 60
 En qué te puedo ayudar ?                        = 60 60 60 60 60
@@ -89,7 +92,7 @@ Qué te sucede esta vez ?                        =  0 10 20 20 30
 
 ################################################################
 
-$_RESPUESTA_ESTADO_DE_ANIMO
+$_RESPUESTA_ESTADO_ANIMO
 
 Bien , gracias .                                = 90 90 100 100 100
 Muy bien .                                      = 100 100 80 80 80
@@ -98,8 +101,15 @@ Excelente .                                     = 60 60 40 20 20
 Estupendo .                                     = 90 90 40 20 10
 Genial .                                        = 80 80 50 50 50
 Fantástico .                                    = 50 50 40 20 10
-Más o menos .                                   =  0  0 10 10 20
-Mal .                                           =  0  0  0  0 10
+Más o menos .                                   =  0  0  0  0 20
+Mal .                                           =  0  0  0  0  0
+Muy mal .                                       =  0  0  0  0  0
+Regular .                                       =  0  0  0  0  0
+Pésimo .                                        =  0  0  0  0  0
+Horrible .                                      =  0  0  0  0  0
+Para el culo .                                  =  0  0  0  5  5
+Para el orto .                                  =  0  0  0  5  5
+Horrible .                                      =  0  0  0  0  0
 De mal humor .                                  =  0  0  0  0  0
 Bien , un poco cansada .                        =  0  0  0 20 50
 Bien , un poco aburrida .                       =  0 10 40 30 30
@@ -132,21 +142,23 @@ Creo que no te conozco , cuál es tu nombre ?    = 20 20 20 20 20
 
 ################################################################
 
-$_RESPUESTA_NOMBRE
+$_RESPUESTA_NOMBRE_ATENEA
 
-Soy Atenea .                                    = 30 30 30 30 30
-Soy Atenea , tu asistente .                     = 50 50 50 50 50
-Mi nombre es Atenea .                           = 90 90 90 90 90
-Mis creadores me llamaron Atenea .              = 50 50 50 50 50
-Me llamo Atenea .                               = 50 50 50 50 50
-Todos me llaman Atenea .                        = 20 20 20 20 20
-Atenea , a secas .                              = 10 10 10 10 10
-Atenea , sólo Atenea .                          = 10 10 10 10 10
+Soy %nombre% .                                  = 30 30 30 30 30
+Soy %nombre% , tu asistente .                   = 50 50 50 50 50
+Mi nombre es %nombre% .                         = 90 90 90 90 90
+Mis creadores me llamaron %nombre% .            = 50 50 50 50 50
+Me llamo %nombre% .                             = 50 50 50 50 50
+Todos me llaman %nombre% .                      = 20 20 20 20 20
+Podés llamarme %nombre% .                       = 20 20 20 20 20
+Podés decirme %nombre% .                        = 20 20 20 20 20
+%nombre% , a secas .                            = 10 10 10 10 10
+%nombre% , sólo %nombre% .                      = 10 10 10 10 10
 
 
 ################################################################
 
-$_RESPUESTA_NOMBRE_USUARIO
+$_RESPUESTA_A_NOMBRE_USUARIO
 
 Mucho gusto .                                   = 50 50 50 50 50
 Un gusto .                                      = 30 30 30 30 30
@@ -160,7 +172,7 @@ Me agrada ese nombre .                          = 10 10 10 10 10
 
 ################################################################
 
-$_RESPUESTA_ESTADO_DE_ANIMO_BIEN
+$_RESPUESTA_A_ESTADO_ANIMO_USUARIO_BIEN
 
 Me alegra escuchar eso .                        = 20 20 20 20 20
 Me alegro por vos .                             = 10 10 10 10 10
@@ -170,7 +182,7 @@ Me alegra oírte bien .                          = 30 30 30 30 30
 
 ################################################################
 
-$_RESPUESTA_ESTADO_DE_ANIMO_MAL
+$_RESPUESTA_A_ESTADO_ANIMO_USUARIO_MAL
 
 Uy , espero poder ayudarte .                    = 20 20 20 20 20
 Uy , espero que te mejores .                    = 20 20 20 20 20
@@ -183,19 +195,19 @@ Verás que mañana te irá mejor .                 =  0  0  0 20 30
 
 ################################################################
 
-$_RESPUESTA_EDAD
+$_RESPUESTA_EDAD_ATENEA
 
-Tengo %edad% .                                  = 20 20 20 20 20
-Tengo %edad% de edad .                          = 20 20 20 20 20
+Tengo %edad% .                                  = 30 30 30 30 30
+Tengo %edad% de edad .                          = 40 40 40 40 40
 Apenas tengo %edad% .                           = 20 20 20 20 20
 Apenas tengo %edad% de edad .                   = 20 20 20 20 20
 Tan solo %edad% .                               = 20 20 20 20 20
-Tan solo %edad% de edad .                       = 20 20 20 20 20
+Tan solo %edad% de edad .                       = 10 10 10 10 10
 
 
 ################################################################
 
-$_RESPUESTA_QUE_HACES
+$_RESPUESTA_A_QUE_HACES
 
 Esperando que me hables .                       = 10 10 10 10 10
 Escuchando lo que me dices .                    = 10 10 10 10 10

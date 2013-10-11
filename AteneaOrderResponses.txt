@@ -1,0 +1,71 @@
+﻿
+#                  IMPORTANTE!!!
+#
+# Los numeros son las ponderaciones.
+#
+# Los signos de puntuacion en las frases deben ir entre espacios blancos.
+# Todas las frases deben terminar en punto (.) o algun signo (? o !)
+# Los renglones que empiecen con numeral son comentarios.
+
+####################################################################
+
+$_ORDEN_DESCONOCIDA
+
+No sé cómo hacer eso , Me lo explicás ?                         = 10
+No sé cómo hacer eso , Me lo enseñás ?                          = 10
+No sé cómo hacer eso , Podrías explicarmelo ?                   = 10
+No sé ejecutar esa acción , Podrías explicármelo ?              = 10
+No sé cómo hacerlo , Me lo podrías explicar ?                   = 10
+No sé cómo hacerlo , Me lo podés explicar ?                     = 10
+No sé cómo hacerlo , Podrías enseñármelo ?                      = 10
+No sé cómo hacerlo , Me lo podés enseñar ?                      = 10
+No conozco esa acción , Podés explicarme cómo se hace ?         = 10
+No conozco esa acción , Podés mostrarme cómo se hace ?          = 10
+
+No sé %order% , Podrías explicarme cómo hacerlo ?               = 10
+No sé %order% , Podrías explicarme cómo se hace ?               = 10
+No sé cómo %order% , Podrías explicármelo ?                     = 10
+No sé cómo %order% , Me lo podés explicar ?                     = 10
+No sé cómo %order% , Me lo podrás explicar ?                    = 10
+No sé hacer lo que me pides , Me lo explicás ?                  = 10
+
+Podrías explicarme cómo se hace ?                               = 10
+Podrías explicarme cómo %order% ?                               = 10
+Podrías mostrarme cómo se hace ?                                = 10
+Podrías mostrarme cómo hacerlo ?                                = 10
+Podrías mostrarme cómo %order% ?                                = 10
+
+Aún no sé cómo hacerlo , Me lo explicás ?                       = 10
+Aún no sé hacerlo , Me lo explicás ?                            = 10
+Aún no sé hacerlo , Podrías explicármelo ?                      = 10
+Aún no sé hacerlo , Podrías explicármelo ?                      = 10
+Aún no sé %order% , Podrías explicármelo ?                      = 10
+Aún no sé %order% , Podrías mostrarme cómo hacerlo ?            = 10
+Aún no sé %order% , Podrás mostrarme cómo se hace ?             = 10
+
+Todavía no sé cómo hacerlo , Me lo explicás ?                   = 10
+Todavía no sé hacerlo , Me lo explicás ?                        = 10
+Todavía no sé hacerlo , Podrías explicármelo ?                  = 10
+Todavía no sé hacerlo , Podrías explicármelo ?                  = 10
+Todavía no sé %order% , Podrías explicármelo ?                  = 10
+Todavía no sé %order% , Podrías mostrarme cómo hacerlo ?        = 10
+Todavía no sé %order% , Podrás mostrarme cómo se hace ?         = 10
+
+####################################################################
+
+$_ORDEN_CONOCIDA
+
+Entendido .                                                    = 200
+Comprendido .                                                  = 30
+Por supuesto .                                                 = 30
+Claro que sí .                                                 = 10
+Ejecutando .                                                   = 40
+Como quieras .                                                 = 30
+Como desees .                                                  = 10
+Voy a intentarlo .                                             = 30
+Órdenes son órdenes .                                          = 30
+Eso sí puedo hacerlo .                                         = 40
+Ahí voy .                                                      = 20
+Ya lo estoy haciendo .                                         = 20
+Dame unos segundos .                                           = 20
+
