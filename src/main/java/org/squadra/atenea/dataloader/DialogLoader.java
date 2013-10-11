@@ -15,9 +15,34 @@ public class DialogLoader implements DataLoaderInterface {
 	 * Poner en true para que parsee las oraciones con la
 	 * gramatica de AteneaParser, sino poner en false.
 	 */
-	private final boolean GRAMMAR_PARSE = true;
+	private boolean GRAMMAR_PARSE = true;
+	
+	/** 
+	 * Tipo de oracion almacenada. Es el nombre del indice
+	 * con que se guardara en la base de datos. 
+	 */
+	private String DIALOG_TYPE = "dialogType";
+	
+	/**
+	 * Es el numero iniciar con que comienza el contador de IDs
+	 * para cada oracion insertada.
+	 */
+	private long FIRST_SENTENCE_ID = 0;
 	
 	private NodeDefinition nodeDefinition;
+	
+	/**
+	 * Constructor parametrizado.
+	 * @param grammarParse
+	 * @param dialogType
+	 * @param firstSentenceId
+	 */
+	public DialogLoader(boolean grammarParse, String dialogType, long firstSentenceId) {
+		this.GRAMMAR_PARSE = grammarParse;
+		this.DIALOG_TYPE = dialogType;
+		this.FIRST_SENTENCE_ID = firstSentenceId;
+	}
+	
 	
 	@Override
 	public void loadData(String source) {
@@ -54,7 +79,8 @@ public class DialogLoader implements DataLoaderInterface {
 	 * @param content
 	 */
 	private void loadParsedWords(ArrayList<String> content) {
-		int sentenceId = 0;
+		
+		long sentenceId = FIRST_SENTENCE_ID;
 		String dialogTypeNode = new String();
 		
 		for (String line : content) {	
@@ -69,11 +95,11 @@ public class DialogLoader implements DataLoaderInterface {
 					System.out.println("\n$$$$ tipo: " + dialogTypeNode);
 				}
 				
-				// Si es una frase a un tipo de dialogo
+				// Si es una frase de un tipo de dialogo
 				else {
 					sentenceId++;
 					
-					// Obtengo las palabras de la frase
+					// Obtengo la frase
 					String[] dialogResponse = line.split("=");
 					
 					Sentence sentence = new Parser().parse(dialogResponse[0].trim());
@@ -95,10 +121,11 @@ public class DialogLoader implements DataLoaderInterface {
 					
 					if (dialogResponseWords.size() > 0) {
 						// Relaciono la primera palabra de la respuesta con el tipo
-						nodeDefinition.relateDialogWords(
+						nodeDefinition.relateTypeOfDialogWords(
 								new Word(dialogTypeNode), 
 								dialogResponseWords.get(0), 
-								sentenceId, 0, dialogResponseProb);
+								sentenceId, 0, dialogResponseProb, 
+								DIALOG_TYPE);
 						
 						// Relaciono el resto de las palabras de la respuesta
 						for (int i = 0; i < dialogResponseWords.size() - 1; i++) {
@@ -124,7 +151,7 @@ public class DialogLoader implements DataLoaderInterface {
 	 */
 	private void loadNonParsedWords(ArrayList<String> content) {
 		
-		int sentenceId = 0;
+		long sentenceId = FIRST_SENTENCE_ID;
 		String dialogTypeNode = new String();
 		
 		for (String line : content) {	
@@ -163,10 +190,11 @@ public class DialogLoader implements DataLoaderInterface {
 					}
 					
 					// Relaciono la primera palabra de la respuesta con el tipo
-					nodeDefinition.relateDialogWords(
+					nodeDefinition.relateTypeOfDialogWords(
 							new Word(dialogTypeNode, ""), 
 							new Word(dialogResponseWords[0], ""), 
-							sentenceId, 0, dialogResponseProb);
+							sentenceId, 0, dialogResponseProb,
+							DIALOG_TYPE);
 					
 					// Relaciono el resto de las palabras de la respuesta
 					for (int i = 0; i < dialogResponseWords.length - 1; i++) {
@@ -175,8 +203,6 @@ public class DialogLoader implements DataLoaderInterface {
 								new Word(dialogResponseWords[i+1], ""), 
 								sentenceId, i + 1);
 					}
-					
-					// TODO: los signos de puntuacion deberia guardarse EN la relacion
 					
 					System.out.println("- " + line);
 				}			

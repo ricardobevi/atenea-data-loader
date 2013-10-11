@@ -13,19 +13,24 @@ public class Main {
 		//ManualDataLoader mdl = new ManualDataLoader();
 		//mdl.loadData("");
 		
-		new DialogLoader().loadData("./AteneaDialogResponses.txt");
+		// Cargo las respuestas a dialogos
+		new DialogLoader(true, "dialogType", 0).loadData("./AteneaDialogResponses.txt");
+		// Cargo las respuestas a ordenes
+		new DialogLoader(true, "orderType", 500).loadData("./AteneaOrderResponses.txt");
 	}
 	
-	
-	//Devuelve todo
-//	START n=node(*)
-//	MATCH (n)-[r]->(m)
-//  RETURN n.word as from, r.id as sentence, r.seq as `->`, m.word as to;
-	
-	//devuelve una oracion
-//	START n=node(*)
-//	MATCH (n)-[r]->(m)
-//	WHERE r.id=3
-//	RETURN n.word as from, r.id as sentence, r.seq as `->`, m.word as to
-//	ORDER BY r.seq;
 }
+
+/*
+	Devuelve todo
+  	START n=node(*)
+  	MATCH (n)-[r]->(m)
+    RETURN n.word as from, r.id as sentence, r.seq as `->`, m.word as to;
+  	
+  	devuelve una oracion
+  	START n=node(*)
+  	MATCH (n)-[r]->(m)
+  	WHERE r.id=3
+  	RETURN n.word as from, r.id as sentence, r.seq as `->`, m.word as to
+  	ORDER BY r.seq;
+*/
