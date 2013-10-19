@@ -6,14 +6,12 @@ import java.sql.Connection;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import lombok.extern.log4j.Log4j;
-
 import org.apache.commons.lang.StringEscapeUtils;
 import org.squadra.atenea.base.word.*;
 import org.squadra.atenea.data.definition.NodeDefinition;
 import org.squadra.atenea.data.server.NeuralDataAccess;
 
-@Log4j
+//@Log4j
 public class WikipediaBulkLoader {
 
 	static private NodeDefinition nodeDefinition = new NodeDefinition();
@@ -73,14 +71,15 @@ public class WikipediaBulkLoader {
 	private static ArrayList<String> loadRange(Integer from, Integer size) {
 		ArrayList<String> allSentences = new ArrayList<String>();
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("org.postgresql.Driver");
 			Connection conexion = DriverManager.getConnection(
-					"jdbc:mysql://localhost/wiki", "root", "");
+					"jdbc:postgresql://bartgentoo.no-ip.org:5432/wiki","wiki", "wiki1621");
 			Statement s = conexion.createStatement();
 
 			System.out.println("Leyendo de la base de datos.");
 
-			ResultSet rs = s.executeQuery("select cuerpo from articulo where subtitulo is null limit "
+			ResultSet rs = s.executeQuery(
+					"select cuerpo from articulo where subtitulo is null limit "
 					+ from + " , " + size);
 
 

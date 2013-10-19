@@ -8,15 +8,17 @@ import org.squadra.atenea.dataloader.WikipediaBulkLoader;
 public class Main {
 
 	public static void main(String args[]) {
-		//WikipediaBulkLoader.run();
+		WikipediaBulkLoader.run();
 		//WikiEnhancedBulkLoader.run();
 		//ManualDataLoader mdl = new ManualDataLoader();
 		//mdl.loadData("");
 		
 		// Cargo las respuestas a dialogos
-		new DialogLoader(true, "dialogType", 0).loadData("./AteneaDialogResponses.txt");
+		//new DialogLoader(true, "dialogType", 0).loadData("./AteneaDialogResponses.txt");
 		// Cargo las respuestas a ordenes
-		new DialogLoader(true, "orderType", 500).loadData("./AteneaOrderResponses.txt");
+		//new DialogLoader(true, "orderType", 500).loadData("./AteneaOrderResponses.txt");
+		
+		System.exit(0);
 	}
 	
 }
