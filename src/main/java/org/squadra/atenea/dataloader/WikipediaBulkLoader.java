@@ -65,7 +65,7 @@ public class WikipediaBulkLoader {
 			
 		} while (!articles.isEmpty());
 
-		NeuralDataAccess.stop();
+		//NeuralDataAccess.stop();
 	}
 
 	private static ArrayList<String> loadRange(Integer from, Integer size) {
@@ -79,8 +79,8 @@ public class WikipediaBulkLoader {
 			System.out.println("Leyendo de la base de datos.");
 
 			ResultSet rs = s.executeQuery(
-					"select cuerpo from articulo where subtitulo is null limit "
-					+ from + " , " + size);
+					"select cuerpo from articulo where titulo = 'José de San Martín' "
+					+ " limit " + size + " OFFSET " + from);
 
 
 			while (rs.next()) {
