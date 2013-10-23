@@ -1,0 +1,28 @@
+﻿
+#                  IMPORTANTE!!!
+#
+# Los numeros son las ponderaciones.
+#
+# Los signos de puntuacion en las frases deben ir entre espacios blancos.
+# Todas las frases deben terminar en punto (.) o algun signo (? o !)
+# Los renglones que empiecen con numeral son comentarios.
+
+####################################################################
+
+$_FALTA_INFORMACION
+
+No tengo información sobre eso que me preguntas .               = 10
+
+
+####################################################################
+
+$_AFIRMACION
+
+No sé qué decirte .                                             = 10
+
+
+####################################################################
+
+$_NO_ENTIENDO
+
+Disculpa , no logro entenderte .                                = 10
