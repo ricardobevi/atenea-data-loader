@@ -4,31 +4,30 @@ import java.io.IOException;
 
 import org.squadra.atenea.data.server.NeuralDataAccess;
 import org.squadra.atenea.dataloader.DialogLoader;
-import org.squadra.atenea.dataloader.ManualDataLoader;
-import org.squadra.atenea.dataloader.WikiEnhancedBulkLoader;
 import org.squadra.atenea.dataloader.WikipediaBulkLoader;
 
 public class Main {
 
 	public static void main(String args[]) {
-		WikipediaBulkLoader.run();
-		/*
-		NeuralDataAccess.init();
-		try {
-			System.out.println("Preciona una tecla para parar el servidor.");
-			System.in.read();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}*/
-		
-		//WikiEnhancedBulkLoader.run();
-		//ManualDataLoader mdl = new ManualDataLoader();
-		//mdl.loadData("");
 		
 		// Cargo las respuestas a dialogos
 		//new DialogLoader(true, "dialogType", 0).loadData("./AteneaDialogResponses.txt");
+		
 		// Cargo las respuestas a ordenes
 		//new DialogLoader(true, "orderType", 500).loadData("./AteneaOrderResponses.txt");
+		
+		// Cargo las respuestas de la Wiki
+		String query = "SELECT cuerpo FROM articulo WHERE titulo = 'José de San Martín'";
+		new WikipediaBulkLoader(2000).loadData(query);
+		
+		
+		NeuralDataAccess.init();
+		try {
+			System.out.println("Presiona una tecla para parar el servidor.");
+			System.in.read();
+		} catch (IOException e) {
+			e.printStackTrace(); 
+		}
 		
 		System.exit(0);
 	}

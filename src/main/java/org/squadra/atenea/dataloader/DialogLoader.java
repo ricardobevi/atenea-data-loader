@@ -31,6 +31,13 @@ public class DialogLoader implements DataLoaderInterface {
 	
 	private NodeDefinition nodeDefinition;
 	
+	
+	/**
+	 * Constructor por defecto
+	 */
+	public DialogLoader() {
+	}
+	
 	/**
 	 * Constructor parametrizado.
 	 * @param grammarParse
