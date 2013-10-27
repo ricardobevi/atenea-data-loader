@@ -12,6 +12,9 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.squadra.atenea.base.word.*;
 import org.squadra.atenea.data.definition.NodeDefinition;
 import org.squadra.atenea.data.server.NeuralDataAccess;
+import org.squadra.atenea.parser.Parser;
+import org.squadra.atenea.parser.model.Sentence;
+import org.squadra.atenea.parser.model.SimpleSentence;
 
 @Log4j
 public class WikipediaBulkLoader implements DataLoaderInterface {
@@ -89,13 +92,16 @@ public class WikipediaBulkLoader implements DataLoaderInterface {
 					if (article != null)
 					{
 						//Separo las oraciones del articulo
-						String[] sentences = article.split("\\.");
+						String[] sentences = article.split("\\. ");
 						for (String sentence : sentences) {
 
 							actualSentence = article;
+							
+							//Elimino las basofias que dejo Lucas mal parseadas 							
 							sentence = removeUnnecessaryChars(sentence).trim();
 							sentence = StringEscapeUtils.unescapeHtml(sentence);
-							//Escribo en neo4j
+							
+							//Escribo en la base de datos
 							write(sentence, numberSentence++);
 						}
 					}
@@ -130,7 +136,6 @@ public class WikipediaBulkLoader implements DataLoaderInterface {
 			ResultSet rs = s.executeQuery(
 					query + " LIMIT " + size + " OFFSET " + from);
 
-
 			while (rs.next()) {
 				allSentences.add(rs.getString(1));
 			}
@@ -148,20 +153,39 @@ public class WikipediaBulkLoader implements DataLoaderInterface {
 	
 	private void write(String sentence, long numberSentence) {
 
-		//Separo las comas para que queden como una palabra
-		sentence = sentence.replaceAll("\\,\\ ", "\\ \\,\\ ");
-
-		//Separo las palabras de la oracion
-		String[] words = sentence.split("\\ ");
+		//Agrego un punto al final de la oracion
+		sentence += " .";
+		
 		ArrayList<Word> results = new ArrayList<Word>();
-
-		for (String word : words) {
-			Word w = new Word(word);
-			// WordClassifier classifier = new WordClassifier();
-			// results.add(classifier.classifyWord(word));
-			results.add(w);
+		
+		if (GRAMMAR_PARSE) {
+			
+			// Parseo la oracion con la gramatica
+			System.out.println("Parsing: " + sentence);
+			Sentence parsedSentence = new Parser().parse(sentence);
+			results = parsedSentence.getAllWords(true);
+			System.out.println("Parsed:  " + new SimpleSentence(results).toString());
 		}
+		
+		else {
+			
+			//Separo las comas para que queden como una palabra
+			sentence = sentence.replaceAll("\\,\\ ", "\\ \\,\\ ");
 
+			//Separo las palabras de la oracion
+			String[] words = sentence.split("\\ ");
+
+			results = new ArrayList<Word>();
+			
+			for (String word : words) {
+				Word w = new Word(word);
+				// WordClassifier classifier = new WordClassifier();
+				// results.add(classifier.classifyWord(word));
+				results.add(w);
+			}
+			
+		}
+		
 		// escribir	
 		try {
 			//Relaciono las palabras
@@ -170,11 +194,6 @@ public class WikipediaBulkLoader implements DataLoaderInterface {
 				nodeDefinition.relateWords(results.get(i), results.get(i + 1),
 						numberSentence, i);
 			}
-
-			// Relaciono la ultima palabra con "."
-			nodeDefinition.relateWords(results.get(results.size() - 1),
-					new Word("."),
-					numberSentence, ++i);
 		}
 		catch (Exception e) {
 			nodeDefinition.endTransaction();
@@ -185,9 +204,13 @@ public class WikipediaBulkLoader implements DataLoaderInterface {
 
 	
 	private static String removeUnnecessaryChars(String sentence) {
-		sentence = sentence.replaceAll("[\\(\\);:\\-\\/!?¡¿\\\"]", "");
-		sentence = sentence.replaceAll("\\<.*?>", "");
+		sentence = sentence.replaceAll("http:.*? ","");
+		sentence = sentence.replaceAll("\\<.*?\\>", "");
+		//sentence = sentence.replaceAll("[\\.\\(\\);:\\-\\/\\«\\»\\'!?¡¿\\\"]", "");
+		sentence = sentence.replaceAll("[\\.;:\\-]", " ");
+		sentence = sentence.replaceAll("[\\«\\»\\'¡¿\\\"]", "");
 		sentence = sentence.replaceAll("\\\\", "");
 		return sentence;
 	}
+	
 }
