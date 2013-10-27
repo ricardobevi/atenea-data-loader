@@ -11,15 +11,15 @@ public class Main {
 	public static void main(String args[]) {
 		
 		// Cargo las respuestas a dialogos
-		//new DialogLoader(true, "dialogType", 0).loadData("./AteneaDialogResponses.txt");
+		new DialogLoader(true, "dialogType", 0).loadData("./AteneaDialogResponses.txt");
 		
 		// Cargo las respuestas a ordenes
-		//new DialogLoader(true, "orderType", 500).loadData("./AteneaOrderResponses.txt");
+		new DialogLoader(true, "orderType", 500).loadData("./AteneaOrderResponses.txt");
 		
 		// Cargo las respuestas de la Wiki
-		String query = "SELECT cuerpo FROM articulo WHERE titulo = 'José de San Martín'";
-		new WikipediaBulkLoader(2000).loadData(query);
+		String query = "SELECT cuerpo FROM articulo WHERE titulo = 'José de San Martín' ORDER BY id ASC ";
 		
+		new WikipediaBulkLoader(true, "wikiSentence", 2000).loadData(query);
 		
 		NeuralDataAccess.init();
 		try {
@@ -30,6 +30,13 @@ public class Main {
 		}
 		
 		System.exit(0);
+		
+		/*
+		String str = "hola 100. hola 1000 sisi. 2.000 si s«eñor. ";
+		String[] array = str.split("\\.[a-zA-Z| ]");
+		for (String s : array) {
+			System.out.println(s.replaceAll("[\\«\\»]", ""));
+		}*/
 	}
 	
 }

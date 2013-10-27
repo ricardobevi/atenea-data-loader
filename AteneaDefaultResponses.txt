@@ -11,7 +11,13 @@
 
 $_FALTA_INFORMACION
 
-No tengo información sobre eso que me preguntas .               = 10
+No tengo información sobre eso que me preguntas .               = 20
+No tengo información sobre el tema .                            = 50
+No tengo información sobre el asunto .                          = 10
+Desconozco lo que me preguntas .                                = 10
+Desconozco eso que me preguntas .                               = 10
+Desconozco sobre ese tema .                                     = 20
+Aún no tengo información sobre ese tema .                       = 40
 
 
 ####################################################################
