@@ -16,6 +16,9 @@ public class Main {
 		// Cargo las respuestas a ordenes
 		new DialogLoader(true, "orderType", 500).loadData("./AteneaOrderResponses.txt");
 		
+		// Cargo las respuestas a afirmaciones o mensajes desconocidos
+		new DialogLoader(true, "defaultType", 1000).loadData("./AteneaDefaultResponses.txt");
+		
 		// Cargo las respuestas de la Wiki
 		String query = "SELECT cuerpo FROM articulo WHERE titulo = 'José de San Martín' ORDER BY id ASC ";
 		

@@ -11,24 +11,48 @@
 
 $_FALTA_INFORMACION
 
-No tengo información sobre eso que me preguntas .               = 20
-No tengo información sobre el tema .                            = 50
+No tengo información sobre lo que preguntas .                   = 30
+No tengo información sobre ese tema .                           = 50
 No tengo información sobre el asunto .                          = 10
 Desconozco lo que me preguntas .                                = 10
 Desconozco eso que me preguntas .                               = 10
 Desconozco sobre ese tema .                                     = 20
-Aún no tengo información sobre ese tema .                       = 40
+Aún no tengo información sobre ese tema .                       = 50
+No encuentro respuesta a lo que preguntas .                     = 50
+Disculpa , no tengo información sobre el tema .                 = 100
 
 
 ####################################################################
 
-$_AFIRMACION
+$_BUSQUEDA_EN_GOOGLE
 
+Puedo buscarlo en Google .                                      = 20
+Puedo buscarlo en internet .                                    = 20
+Lo buscaré en Google .                                          = 20
+Lo buscaré en internet .                                        = 20
+Te lo buscaré en Google .                                       = 20
+Te lo buscaré en internet .                                     = 20
+Te lo buscaré .                                                 = 40
+
+
+####################################################################
+
+$_RESPUESTA_AFIRMACION
+
+Muy bien .                                                      = 10
 No sé qué decirte .                                             = 10
+Ajam .                                                          = 20
+Me parece bien .                                                = 30
+Coincido con vos .                                              = 40
+Estoy de acuerdo .                                              = 40
+Necesitás algo ?                                                = 10
 
 
 ####################################################################
 
 $_NO_ENTIENDO
 
-Disculpa , no logro entenderte .                                = 10
+Disculpa , no logro entenderte .                                = 50
+Disculpa , no comprendo lo que me dices .                       = 10
+Disculpa , no entiendo lo que me dijiste .                      = 10
+Sory , no logro entenderte .                                    = 20

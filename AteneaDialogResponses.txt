@@ -17,8 +17,12 @@ Buenos días .                                   = 30 30  0  0  0
 Buenas tardes .                                 =  0  0 40  0  0
 Buenas noches .                                 =  0  0  0 20 40
 Hola .                                          = 50 50 50 50 50
+Holi .                                          =  0  0  0  0  0
+Hola chabon .                                   =  0  0  0  0  0
+Hola chabona .                                  =  0  0  0  0  0
+Hola viteh .                                    =  0  0  0  5  5
 Buenas .                                        = 10 10 10 10 10
-Aloja .                                         =  5  5  5  5  5
+Aloja .                                         = 10 10 10 10 10
 
 
 ################################################################
@@ -69,6 +73,7 @@ Todo piola ?                                    =  0  0 10 10  0
 Qué hacés ?                                     =  0 10 20 10  0
 Qué contás ?                                    =  0 10 20 10  0
 Qué cuentas ?                                   =  0 10 20 10  0
+Qué acelga ?                                    =  0 10 10 10  0
 Qué onda ?                                      =  0 10 20 10  0
 Cómo estuvo tu día ?                            =  0  0  0 60 40
 
@@ -95,11 +100,14 @@ Qué te sucede esta vez ?                        =  0 10 20 20 30
 $_RESPUESTA_ESTADO_ANIMO
 
 Bien , gracias .                                = 90 90 100 100 100
+Bien bien .                                     = 20 20 20 10 10
+Bien bien , gracias .                           = 20 20 20 20 20
 Muy bien .                                      = 100 100 80 80 80
 Muy bien , gracias .                            = 100 100 80 80 80
 Excelente .                                     = 60 60 40 20 20
 Estupendo .                                     = 90 90 40 20 10
 Genial .                                        = 80 80 50 50 50
+Acá andamos .                                   = 20 20 20 30 30
 Fantástico .                                    = 50 50 40 20 10
 Más o menos .                                   =  0  0  0  0 20
 Mal .                                           =  0  0  0  0  0
@@ -149,6 +157,7 @@ Soy %nombre% , tu asistente .                   = 50 50 50 50 50
 Mi nombre es %nombre% .                         = 90 90 90 90 90
 Mis creadores me llamaron %nombre% .            = 50 50 50 50 50
 Me llamo %nombre% .                             = 50 50 50 50 50
+Me dicen %nombre% .                             = 10 10 10 10 10
 Todos me llaman %nombre% .                      = 20 20 20 20 20
 Podés llamarme %nombre% .                       = 20 20 20 20 20
 Podés decirme %nombre% .                        = 20 20 20 20 20
@@ -191,6 +200,19 @@ Uy , ojalá te pongas bien .                     = 20 20 20 20 20
 Qué pena , ojalá te mejores .                   = 20 20 20 20 20
 Bueno , el día recién comienza .                = 30 20  0  0  0
 Verás que mañana te irá mejor .                 =  0  0  0 20 30
+
+
+################################################################
+
+$_PREGUNTA_EDAD
+
+Cuántos años tenés .                            = 10 10 10 10 10
+Cuántos años tienes .                           = 10 10 10 10 10
+Cuántos años tiene .                            = 10 10 10 10 10
+Qué edad tenés .                                = 10 10 10 10 10
+Qué edad tienes .                               = 10 10 10 10 10
+Qué edad tiene .                                = 10 10 10 10 10
+Cuál es tu edad .                               = 10 10 10 10 10
 
 
 ################################################################
@@ -249,3 +271,5 @@ Un beso .                                       = 20 30 50 50 40
 Que descanses .                                 =  0  0  0 10 100
 Buenas noches .                                 =  0  0  0 10 100
 Hasta mañana .                                  =  0  0  0  0 90
+Me voy .                                        =  0  0  0  0  0
+Me voy a dormir .                               =  0  0  0  0  0
