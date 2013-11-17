@@ -4,12 +4,13 @@ import java.io.IOException;
 
 import org.squadra.atenea.data.server.NeuralDataAccess;
 import org.squadra.atenea.dataloader.DialogLoader;
+import org.squadra.atenea.dataloader.WikiAdditionalDataLoader;
 import org.squadra.atenea.dataloader.WikipediaBulkLoader;
 
 public class Main {
 
 	public static void main(String args[]) {
-		
+		/*
 		// Cargo las respuestas a dialogos
 		new DialogLoader(true, "dialogType", 0).loadData("./AteneaDialogResponses.txt");
 		
@@ -22,7 +23,17 @@ public class Main {
 		// Cargo las respuestas de la Wiki
 		String query = "SELECT cuerpo FROM articulo WHERE titulo = 'José de San Martín' ORDER BY id ASC ";
 		
-		new WikipediaBulkLoader(true, "wikiSentence", 2000).loadData(query);
+		new WikipediaBulkLoader(true, 2000).loadData(query);
+		*/
+		
+		// Cargo los cuadritos (info adicional) de la Wiki
+		// Es recomendable que esto se ejecute despues del WikipediaBulkLoader
+		
+		String query2 = "SELECT titulo, subtitulo, cuerpo FROM infoadicional_new "
+				+ "WHERE titulo = 'José de San Martín' ORDER BY id ASC ";
+		
+		new WikiAdditionalDataLoader(true, 100000).loadData(query2);
+		
 		
 		NeuralDataAccess.init();
 		try {

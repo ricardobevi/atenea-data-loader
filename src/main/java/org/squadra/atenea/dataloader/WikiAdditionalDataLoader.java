@@ -1,15 +1,15 @@
 package org.squadra.atenea.dataloader;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.Connection;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import lombok.extern.log4j.Log4j;
 
-import org.apache.commons.lang.StringEscapeUtils;
-import org.squadra.atenea.base.word.*;
+import org.squadra.atenea.base.word.Word;
 import org.squadra.atenea.data.definition.NodeDefinition;
 import org.squadra.atenea.data.server.NeuralDataAccess;
 import org.squadra.atenea.parser.Parser;
@@ -17,7 +17,7 @@ import org.squadra.atenea.parser.model.Sentence;
 import org.squadra.atenea.parser.model.SimpleSentence;
 
 @Log4j
-public class WikipediaBulkLoader implements DataLoaderInterface {
+public class WikiAdditionalDataLoader implements DataLoaderInterface {
 
 	/** 
 	 * Poner en true para que parsee las oraciones con la
@@ -38,7 +38,7 @@ public class WikipediaBulkLoader implements DataLoaderInterface {
 	 * Constructor parametrizado.
 	 * @param firstSentenceId
 	 */
-	public WikipediaBulkLoader(long firstSentenceId) {
+	public WikiAdditionalDataLoader(long firstSentenceId) {
 		this.FIRST_SENTENCE_ID = firstSentenceId;
 	}
 	
@@ -48,15 +48,15 @@ public class WikipediaBulkLoader implements DataLoaderInterface {
 	 * @param dialogType
 	 * @param firstSentenceId
 	 */
-	public WikipediaBulkLoader(boolean grammarParse, long firstSentenceId) {
+	public WikiAdditionalDataLoader(boolean grammarParse, long firstSentenceId) {
 		this.GRAMMAR_PARSE = grammarParse;
 		this.FIRST_SENTENCE_ID = firstSentenceId;
 	}
 	
-
+	
 	@Override
 	public void loadData(String source) {
-
+		
 		// Inicio la base de datos
 		NeuralDataAccess.init();
 		
@@ -66,12 +66,12 @@ public class WikipediaBulkLoader implements DataLoaderInterface {
 		//Cargo de a 1000 registros de mysql
 		int from = 0, diff = 1000;
 		long numberSentence = FIRST_SENTENCE_ID;
-		ArrayList<String> articles = null;
+		ArrayList< HashMap<String, String> > rows = null;
 		
 		do {
 
 			//Cargo registros
-			articles = loadRange(source, from, diff);
+			rows = loadRange(source, from, diff);
 			from += diff;
 
 			nodeDefinition.beginTransaction();
@@ -81,23 +81,14 @@ public class WikipediaBulkLoader implements DataLoaderInterface {
 			{
 				log.debug("Escribiendo hasta el registro " + from + "...");
 
-				for (String article : articles) {
-					if (article != null)
-					{
-						//Separo las oraciones del articulo
-						String[] sentences = article.split("\\. ");
-						for (String sentence : sentences) {
-
-							actualSentence = article;
-							
-							//Elimino las basofias que dejo Lucas mal parseadas 							
-							sentence = removeUnnecessaryChars(sentence).trim();
-							sentence = StringEscapeUtils.unescapeHtml(sentence);
-							
-							//Escribo en la base de datos
-							write(sentence, numberSentence++);
-						}
-					}
+				for (HashMap<String, String> row : rows) {
+					
+					String title = removeUnnecessaryChars(row.get("title")).trim();
+					String subtitle = removeUnnecessaryChars(row.get("subtitle")).trim();
+					String body = removeUnnecessaryChars(row.get("body")).trim();
+					
+					//Escribo en la base de datos
+					write(title, subtitle, body, numberSentence++);
 				}
 
 				log.debug("Fin de Escritura.");
@@ -110,14 +101,15 @@ public class WikipediaBulkLoader implements DataLoaderInterface {
 			}
 			nodeDefinition.endTransaction();
 			
-		} while (!articles.isEmpty());
+		} while (!rows.isEmpty());
 
 		//NeuralDataAccess.stop();
 	}
 
 	
-	private ArrayList<String> loadRange(String query, Integer from, Integer size) {
-		ArrayList<String> allSentences = new ArrayList<String>();
+	private ArrayList<HashMap<String, String>> loadRange(String query, Integer from, Integer size) {
+		
+		ArrayList< HashMap<String, String> > allRegs = new ArrayList< HashMap<String, String> >();
 		try {
 			Class.forName("org.postgresql.Driver");
 			Connection conexion = DriverManager.getConnection(
@@ -130,7 +122,11 @@ public class WikipediaBulkLoader implements DataLoaderInterface {
 					query + " LIMIT " + size + " OFFSET " + from);
 
 			while (rs.next()) {
-				allSentences.add(rs.getString(1));
+				HashMap<String, String> reg = new HashMap<>();
+				reg.put("title", rs.getString(1));
+				reg.put("subtitle", rs.getString(2));
+				reg.put("body", rs.getString(3));
+				allRegs.add(reg);
 			}
 			conexion.close();
 
@@ -140,52 +136,58 @@ public class WikipediaBulkLoader implements DataLoaderInterface {
 		
 		log.debug("Fin de Lectura");
 		
-		return allSentences;
+		return allRegs;
 	}
 
 	
-	private void write(String sentence, long numberSentence) {
+	private void write(String title, String subtitle, String body, long numberSentence) {
 
 		//Agrego un punto al final de la oracion
-		sentence += " .";
+		body += " .";
 		
 		ArrayList<Word> results = new ArrayList<Word>();
 		
 		if (GRAMMAR_PARSE) {
 			
 			// Parseo la oracion con la gramatica
-			System.out.println("Parsing: " + sentence);
-			Sentence parsedSentence = new Parser().parse(sentence);
+			System.out.println("Parsing: " + title + " - " + subtitle + " - " + body);
+			Sentence parsedSentence = new Parser().parse(body);
 			results = parsedSentence.getAllWords(true);
-			System.out.println("Parsed:  " + new SimpleSentence(results).toString());
+			System.out.println("Parsed:  " + title + " - " + subtitle + " - " + new SimpleSentence(results).toString());
 		}
 		
 		else {
 			
 			//Separo las comas para que queden como una palabra
-			sentence = sentence.replaceAll("\\,\\ ", "\\ \\,\\ ");
+			body = body.replaceAll("\\,\\ ", "\\ \\,\\ ");
 
 			//Separo las palabras de la oracion
-			String[] words = sentence.split("\\ ");
+			String[] words = body.split("\\ ");
 
 			results = new ArrayList<Word>();
 			
 			for (String word : words) {
 				Word w = new Word(word);
-				// WordClassifier classifier = new WordClassifier();
-				// results.add(classifier.classifyWord(word));
 				results.add(w);
 			}
 			
 		}
-		
-		// escribir	
+
 		try {
-			//Relaciono las palabras
-			Integer i = 0;
-			for (; i < results.size() - 1; i++) {
-				nodeDefinition.relateWords(results.get(i), results.get(i + 1),
-						numberSentence, i);
+			// Relaciono el titulo con el subtitulo
+			nodeDefinition.relateWikiInfoWords(
+					new Word(title), new Word(subtitle), numberSentence, 0, 100);
+			
+			// Relaciono el subtitulo con la primera palabra de la oracion
+			nodeDefinition.relateWikiInfoWords(
+					new Word(subtitle), results.get(0), numberSentence, 1, 100);
+			System.out.println(subtitle + " -> " + results.get(0).getName());
+			
+			// Relaciono las palabras de la oracion del body
+			for (int i = 0; i < results.size() - 1; i++) {
+				System.out.println(results.get(i).getName() + " -> " + results.get(i + 1).getName());
+				nodeDefinition.relateWikiInfoWords(results.get(i), results.get(i + 1),
+						numberSentence, i + 2, 100);
 			}
 		}
 		catch (Exception e) {
@@ -205,5 +207,5 @@ public class WikipediaBulkLoader implements DataLoaderInterface {
 		sentence = sentence.replaceAll("\\\\", "");
 		return sentence;
 	}
-	
+
 }
