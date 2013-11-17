@@ -18,7 +18,7 @@ public class DialogLoader implements DataLoaderInterface {
 	private boolean GRAMMAR_PARSE = true;
 	
 	/** 
-	 * Tipo de oracion almacenada. Es el nombre del indice
+	 * Tipo de nodo origen almacenado. Es el nombre del indice
 	 * con que se guardara en la base de datos. 
 	 */
 	private String DIALOG_TYPE = "dialogType";
