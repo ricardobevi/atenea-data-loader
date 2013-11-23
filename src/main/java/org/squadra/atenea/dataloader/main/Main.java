@@ -22,14 +22,16 @@ public class Main {
 		new WikipediaBulkLoader(true, "wikiSentence", 2000).loadData(query);
 		
 		
-		
-		
+		*/
+		 
 		
 		new WikiConceptLoader().loadData(
 				"select titulo, subtitulo, sentence "
 				+ "from sentencescase as S join articulo as A ON S.id = A.id "
 				+ "where A.titulo IN ( "
-				+ "'José de San Martín',"
+				+ "'José de San Martín')"
+				);
+				/*
 				+ "'Misiones jesuíticas guaraníes',"
 				+ "'Virreinato del Río de la Plata',"
 				+ "'Argentina',"
@@ -46,14 +48,14 @@ public class Main {
 				+ "'París',"
 				+ "'Francmasonería'"
 				+ ")"
-				);
+				);*/
 		
 		  
 		
 		NeuralDataAccess.init("/home/ric/Documentos/Universidad/Proyecto/workspace/AteneaDataLoader/graphDB");
-		*/
 		
-		NeuralDataAccess.init();
+		
+		//NeuralDataAccess.init();
 		
 		try {
 			System.out.println("Presiona una tecla para parar el servidor.");
@@ -216,6 +218,21 @@ RETURN
 ORDER BY totalWeight DESC
 
 
+START 
+  a = node:words('baseWord:*'),
+  b = node:words('baseWord:*')
+MATCH path = a-[relation:CONCEPT*..2]->b
+WHERE
+	a.baseWord = "madre" AND
+    b.baseWord =~ '.*San Martín.*'
+    
+RETURN 
+  LENGTH(path) AS length, 
+  EXTRACT(p in NODES(path) : p.baseWord),
+  reduce(acc=0, r in relationships(path): acc + r.weight) as totalWeight
+  
+ORDER BY totalWeight DESC
+
 
 START 
   a = node:words('baseWord:*'),
@@ -232,8 +249,11 @@ FOREACH (n IN relationships(path) : SET n.weight = n.weight + 100)
 RETURN 
   LENGTH(path) AS length, 
   EXTRACT(p in NODES(path) : p.baseWord),
-  reduce(acc=0, r in relationships(path): acc + r.weight) as totalWeight
+  reduce(acc=0, r in relationships(path): acc + r.weight) as totalWeight,
+  EXTRACT(r in relationships(path) : r.contextSentence)
   
 ORDER BY totalWeight DESC
+
+
 
 */

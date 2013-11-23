@@ -79,9 +79,11 @@ public class WikiConceptLoader implements DataLoaderInterface {
 	
 								if(previousWords.size() > 0){
 									for(Word previousWord : previousWords){
-										nodeDefinition.relateWords(previousWord, word);
-										nodeDefinition.relateWords(word, articleName);
-										nodeDefinition.relateWords(word, paragraphName);
+										nodeDefinition.relateWordsWithContext(previousWord, word, article.getBody());
+										//TODO: esto no esta bien, pero me complica la consulta sino.
+										nodeDefinition.relateWordsWithContext(word, articleName,"");
+										nodeDefinition.relateWordsWithContext(word, paragraphName,"");
+
 									}
 								}
 								
@@ -150,8 +152,7 @@ public class WikiConceptLoader implements DataLoaderInterface {
 		
 		return articles;
 	}
-	
-	
+		
 	@SuppressWarnings("unused")
 	private class Article{
 		
