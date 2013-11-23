@@ -3,9 +3,8 @@ package org.squadra.atenea.dataloader.main;
 import java.io.IOException;
 
 import org.squadra.atenea.data.server.NeuralDataAccess;
-import org.squadra.atenea.dataloader.DialogLoader;
-import org.squadra.atenea.dataloader.WikiAdditionalDataLoader;
-import org.squadra.atenea.dataloader.WikipediaBulkLoader;
+import org.squadra.atenea.dataloader.WikiConceptLoader;
+
 
 public class Main {
 
@@ -17,33 +16,54 @@ public class Main {
 		// Cargo las respuestas a ordenes
 		new DialogLoader(true, "orderType", 500).loadData("./AteneaOrderResponses.txt");
 		
-		// Cargo las respuestas a afirmaciones o mensajes desconocidos
-		new DialogLoader(true, "defaultType", 1000).loadData("./AteneaDefaultResponses.txt");
-		
 		// Cargo las respuestas de la Wiki
 		String query = "SELECT cuerpo FROM articulo WHERE titulo = 'José de San Martín' ORDER BY id ASC ";
 		
-		new WikipediaBulkLoader(true, 2000).loadData(query);
+		new WikipediaBulkLoader(true, "wikiSentence", 2000).loadData(query);
+		
+		
+		
+		
+		
+		new WikiConceptLoader().loadData(
+				"select titulo, subtitulo, sentence "
+				+ "from sentencescase as S join articulo as A ON S.id = A.id "
+				+ "where A.titulo IN ( "
+				+ "'José de San Martín',"
+				+ "'Misiones jesuíticas guaraníes',"
+				+ "'Virreinato del Río de la Plata',"
+				+ "'Argentina',"
+				+ "'Juan de San Martín',"
+				+ "'María de los Remedios de Escalada',"
+				+ "'Buenos Aires',"
+				+ "'Londres',"
+				+ "'Combate de San Lorenzo',"
+				+ "'Ejército del Norte (Provincias Unidas del Río de la Plata)',"
+				+ "'Ejército de los Andes',"
+				+ "'Independencia de Chile',"
+				+ "'Expedición Libertadora del Perú',"
+				+ "'Simón Bolívar',"
+				+ "'París',"
+				+ "'Francmasonería'"
+				+ ")"
+				);
+		
+		  
+		
+		NeuralDataAccess.init("/home/ric/Documentos/Universidad/Proyecto/workspace/AteneaDataLoader/graphDB");
 		*/
 		
-		// Cargo los cuadritos (info adicional) de la Wiki
-		// Es recomendable que esto se ejecute despues del WikipediaBulkLoader
-		
-		String query2 = "SELECT titulo, subtitulo, cuerpo FROM infoadicional_new "
-				+ "WHERE titulo = 'José de San Martín' ORDER BY id ASC ";
-		
-		new WikiAdditionalDataLoader(true, 100000).loadData(query2);
-		
-		
 		NeuralDataAccess.init();
+		
 		try {
 			System.out.println("Presiona una tecla para parar el servidor.");
 			System.in.read();
-		} catch (IOException e) {
-			e.printStackTrace(); 
+		} catch (IOException e) {    
+			NeuralDataAccess.stop();
+			e.printStackTrace();  
 		}
 		
-		System.exit(0);
+		NeuralDataAccess.stop();
 		
 		/*
 		String str = "hola 100. hola 1000 sisi. 2.000 si s«eñor. ";
@@ -51,6 +71,8 @@ public class Main {
 		for (String s : array) {
 			System.out.println(s.replaceAll("[\\«\\»]", ""));
 		}*/
+	
+		System.exit(0);
 	}
 	
 }
@@ -134,5 +156,84 @@ public class Main {
 	    node2.name
 	ORDER BY 
 	    relation3.sentenceId, relation3.sequence ASC;
-  	
+	    
+	    
+	    
+	    
+	    
+	START neo=node:words('name:"San Martín"'),
+      other=node:words('name:madre')
+	MATCH path= neo-[r:SENTENCE*..5]->other 
+	WHERE ALL(n in nodes(path) where 
+	          1=length(filter(m in nodes(path) : m=n))) 
+	RETURN neo, LENGTH(path) AS length, EXTRACT(p in NODES(path) : p.baseWord), other 
+	ORDER BY length
+	
+	
+START 
+  a = node:words('baseWord:Guayaquil'),
+  b = node:words('baseWord:encontrar'),
+  c = node:words('baseWord:"José de San Martín"')
+MATCH path = a-[r:CONCEPT*..2]->b-[r:CONCEPT*..2]->c
+WHERE 
+  ALL(
+    n in nodes(path) where 
+    length( filter(m in nodes(path) : m=n) ) = 1 
+  ) 
+RETURN LENGTH(path) AS length, EXTRACT(p in NODES(path) : p.baseWord) 
+ORDER BY length
+
+
+
+START 
+  a = node:words('baseWord:Guayaquil'),
+  b = node:words('baseWord:encontrar'),
+  c = node:words('baseWord:"José de San Martín"')
+MATCH path = a-[relation:CONCEPT*..2]->b-[relation:CONCEPT*..2]->c
+WHERE 
+  ALL(
+    n in nodes(path) where 
+    length( filter(m in nodes(path) : m=n) ) = 1 
+  ) 
+RETURN 
+  LENGTH(path) AS length, 
+  EXTRACT(p in NODES(path) : p.baseWord),
+  EXTRACT(r in relation : r.weight)
+  
+ORDER BY length
+
+
+START 
+  a = node:words('baseWord:Guayaquil'),
+  b = node:words('baseWord:encontrar'),
+  c = node:words('baseWord:"José de San Martín"')
+MATCH path = a-[relation:CONCEPT*..2]->b-[relation:CONCEPT*..2]->c
+RETURN 
+  LENGTH(path) AS length, 
+  EXTRACT(p in NODES(path) : p.baseWord),
+  reduce(acc=0, r in relationships(path): acc + r.weight) as totalWeight
+  
+ORDER BY totalWeight DESC
+
+
+
+START 
+  a = node:words('baseWord:*'),
+  b = node:words('baseWord:*'),
+  x = node:words('baseWord:*')
+MATCH path = a-[relation:CONCEPT*..1]->x-[relation:CONCEPT*..1]->b
+WHERE
+	a.baseWord = "madre" AND
+    x.baseWord = "Gregoria Matorras del Ser" AND
+    b.baseWord =~ "José de San Martín"
+
+FOREACH (n IN relationships(path) : SET n.weight = n.weight + 100)
+  
+RETURN 
+  LENGTH(path) AS length, 
+  EXTRACT(p in NODES(path) : p.baseWord),
+  reduce(acc=0, r in relationships(path): acc + r.weight) as totalWeight
+  
+ORDER BY totalWeight DESC
+
 */
