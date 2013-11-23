@@ -12,26 +12,23 @@ import lombok.extern.log4j.Log4j;
 import org.squadra.atenea.base.word.Word;
 import org.squadra.atenea.data.definition.NodeDefinition;
 import org.squadra.atenea.data.server.NeuralDataAccess;
-import org.squadra.atenea.parser.Parser;
-import org.squadra.atenea.parser.model.Sentence;
-import org.squadra.atenea.parser.model.SimpleSentence;
 
 @Log4j
 public class WikiAdditionalDataLoader implements DataLoaderInterface {
-
-	/** 
-	 * Poner en true para que parsee las oraciones con la
-	 * gramatica de AteneaParser, sino poner en false.
-	 */
-	private boolean GRAMMAR_PARSE = false;
 	
 	/**
-	 * Es el numero iniciar con que comienza el contador de IDs
-	 * para cada oracion insertada.
+	 * Contador de IDs para cada oracion insertada.
 	 */
-	private long FIRST_SENTENCE_ID = 0;
+	private long currentSentenceId = 0;
 	
 	private NodeDefinition nodeDefinition;
+	
+	/**
+	 * Mapa que contiene la lista de sinonimos correspondientes a cada
+	 * subtitulo de los cuadritos de la wikipedia.
+	 * Key: subtitulo, Value: array de sinonimos y tipo (en un obj Synonim).
+	 */
+	private HashMap< String, Synonim > subtitleSynonims = new HashMap<>();
 	
 	
 	/**
@@ -39,21 +36,11 @@ public class WikiAdditionalDataLoader implements DataLoaderInterface {
 	 * @param firstSentenceId
 	 */
 	public WikiAdditionalDataLoader(long firstSentenceId) {
-		this.FIRST_SENTENCE_ID = firstSentenceId;
+		this.currentSentenceId = firstSentenceId;
+		this.loadSubtitleSynonims();
 	}
 	
-	/**
-	 * Constructor parametrizado.
-	 * @param grammarParse
-	 * @param dialogType
-	 * @param firstSentenceId
-	 */
-	public WikiAdditionalDataLoader(boolean grammarParse, long firstSentenceId) {
-		this.GRAMMAR_PARSE = grammarParse;
-		this.FIRST_SENTENCE_ID = firstSentenceId;
-	}
-	
-	
+
 	@Override
 	public void loadData(String source) {
 		
@@ -65,7 +52,6 @@ public class WikiAdditionalDataLoader implements DataLoaderInterface {
 		
 		//Cargo de a 1000 registros de mysql
 		int from = 0, diff = 1000;
-		long numberSentence = FIRST_SENTENCE_ID;
 		ArrayList< HashMap<String, String> > rows = null;
 		
 		do {
@@ -83,12 +69,12 @@ public class WikiAdditionalDataLoader implements DataLoaderInterface {
 
 				for (HashMap<String, String> row : rows) {
 					
-					String title = removeUnnecessaryChars(row.get("title")).trim();
-					String subtitle = removeUnnecessaryChars(row.get("subtitle")).trim();
-					String body = removeUnnecessaryChars(row.get("body")).trim();
+					String title = row.get("title").trim();
+					String subtitle = row.get("subtitle").trim();
+					String body = row.get("body").trim();
 					
 					//Escribo en la base de datos
-					write(title, subtitle, body, numberSentence++);
+					write(title, subtitle, body);
 				}
 
 				log.debug("Fin de Escritura.");
@@ -140,55 +126,34 @@ public class WikiAdditionalDataLoader implements DataLoaderInterface {
 	}
 
 	
-	private void write(String title, String subtitle, String body, long numberSentence) {
-
-		//Agrego un punto al final de la oracion
-		body += " .";
+	private void write(String title, String subtitle, String body) {
 		
-		ArrayList<Word> results = new ArrayList<Word>();
-		
-		if (GRAMMAR_PARSE) {
+		try {			
+			Synonim synonims = subtitleSynonims.get(subtitle.replaceAll("[0-9]", ""));
 			
-			// Parseo la oracion con la gramatica
-			System.out.println("Parsing: " + title + " - " + subtitle + " - " + body);
-			Sentence parsedSentence = new Parser().parse(body);
-			results = parsedSentence.getAllWords(true);
-			System.out.println("Parsed:  " + title + " - " + subtitle + " - " + new SimpleSentence(results).toString());
-		}
-		
-		else {
-			
-			//Separo las comas para que queden como una palabra
-			body = body.replaceAll("\\,\\ ", "\\ \\,\\ ");
+			if (synonims != null) {
+				
+				System.out.println("Loading: " + title + " - " + subtitle + " - " + body);
 
-			//Separo las palabras de la oracion
-			String[] words = body.split("\\ ");
+				for (String synonim : synonims.getSynonims()) {
+					
+					// Relaciono el titulo con los sinonimos
+					nodeDefinition.relateWikiInfoWords(
+							new Word(title), 
+							new Word(synonim), 
+							currentSentenceId, 1, 100, "synonim");
+					
+					// Relaciono los sinonimos con el contenido
+					nodeDefinition.relateWikiInfoWords(
+							new Word(synonim), 
+							new Word(body), 
+							currentSentenceId, 2, 100, synonims.getType());
 
-			results = new ArrayList<Word>();
-			
-			for (String word : words) {
-				Word w = new Word(word);
-				results.add(w);
+					currentSentenceId++;
+				}
+				
 			}
 			
-		}
-
-		try {
-			// Relaciono el titulo con el subtitulo
-			nodeDefinition.relateWikiInfoWords(
-					new Word(title), new Word(subtitle), numberSentence, 0, 100);
-			
-			// Relaciono el subtitulo con la primera palabra de la oracion
-			nodeDefinition.relateWikiInfoWords(
-					new Word(subtitle), results.get(0), numberSentence, 1, 100);
-			System.out.println(subtitle + " -> " + results.get(0).getName());
-			
-			// Relaciono las palabras de la oracion del body
-			for (int i = 0; i < results.size() - 1; i++) {
-				System.out.println(results.get(i).getName() + " -> " + results.get(i + 1).getName());
-				nodeDefinition.relateWikiInfoWords(results.get(i), results.get(i + 1),
-						numberSentence, i + 2, 100);
-			}
 		}
 		catch (Exception e) {
 			nodeDefinition.endTransaction();
@@ -197,7 +162,78 @@ public class WikiAdditionalDataLoader implements DataLoaderInterface {
 
 	}
 
+
+	private void loadSubtitleSynonims() {
+		
+		/* PARA PERSONAS 
+		 * probado con Juan Domingo Perón, José de San Martín, Barack Obama, Néstor Kirchner
+		 */
+		
+		subtitleSynonims.put("cónyuge", 
+				new Synonim(new String[] 
+						{"cónyuge", "esposo", "esposa", "marido", "mujer", "casar"}, "nombre"));
+		
+		subtitleSynonims.put("hijos", 
+				new Synonim(new String[] 
+						{"hijo", "hija", "descendiente", "heredero"}, "nombre"));
+		
+		subtitleSynonims.put("profesión", 
+				new Synonim(new String[] 
+						{"profesión", "ocupación", "empleo", "carrera", "trabajo", "trabajar", 
+								"ocupar", "dedicar", "oficio" }, "sustantivo"));
+		
+		subtitleSynonims.put("ocupación", 
+				new Synonim(new String[] 
+						{"profesión", "ocupación", "empleo", "carrera", "trabajo", "trabajar", 
+								"ocupar", "dedicar", "oficio" }, "sustantivo"));
+		
+		subtitleSynonims.put("lugarmuerte", 
+				new Synonim(new String[] 
+						{"morir", "muerte", "fallecer", "fallecimiento", "sucumbir"}, "lugar"));
+		
+		subtitleSynonims.put("fechamuerte", 
+				new Synonim(new String[] 
+						{"morir", "muerte", "fallecer", "fallecimiento", "sucumbir"}, "fecha"));
+		
+		subtitleSynonims.put("lugarnac", 
+				new Synonim(new String[] 
+						{"nacer", "nacimiento"}, "lugar"));
+		
+		subtitleSynonims.put("fechanac", 
+				new Synonim(new String[] 
+						{"nacer", "nacimiento"}, "fecha"));
+		
+		subtitleSynonims.put("nombre", 
+				new Synonim(new String[] 
+						{"nombre", "apellido", "llamar", "apellidar"}, "nombre"));
+		
+		subtitleSynonims.put("título", 
+				new Synonim(new String[] 
+						{"título", "cargo", "puesto", "función"}, "sustantivo"));
+		
+		subtitleSynonims.put("cargo", 
+				new Synonim(new String[] 
+						{"título", "cargo", "puesto", "función"}, "sustantivo"));
+		
+		subtitleSynonims.put("partido", 
+				new Synonim(new String[] 
+						{"partido", "política", "político"}, "sustantivo"));
+		
+		subtitleSynonims.put("almamáter", 
+				new Synonim(new String[] 
+						{"almamáter", "estudiar", "educar", "formar"}, "lugar"));
+		
+		subtitleSynonims.put("religión", 
+				new Synonim(new String[] 
+						{"religión", "creencia", "creer", "profesar"}, "sustantivo"));
+		
+		subtitleSynonims.put("residencia", 
+				new Synonim(new String[] 
+						{"residencia", "residir", "vivir", "hogar", "domicilio", "habitar"}, "sustantivo"));
+	}
 	
+	
+	@SuppressWarnings("unused")
 	private static String removeUnnecessaryChars(String sentence) {
 		sentence = sentence.replaceAll("http:.*? ","");
 		sentence = sentence.replaceAll("\\<.*?\\>", "");
@@ -206,6 +242,30 @@ public class WikiAdditionalDataLoader implements DataLoaderInterface {
 		sentence = sentence.replaceAll("[\\«\\»\\'’`¡¿\\\"]", "");
 		sentence = sentence.replaceAll("\\\\", "");
 		return sentence;
+	}
+	
+	
+	/**
+	 * Clase para guardar los sinonimos relacionados con un campo de la wiki determinado
+	 * @author Leandro
+	 *
+	 */
+	private class Synonim {
+		private String[] synonims;
+		private String type;
+		
+		public Synonim(String[] synonims, String type) {
+			this.synonims = synonims;
+			this.type = type;
+		}
+		
+		public String getType() {
+			return type;
+		}
+		
+		public String[] getSynonims() {
+			return synonims;
+		}
 	}
 
 }
