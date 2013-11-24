@@ -71,7 +71,10 @@ public class WikiAdditionalDataLoader implements DataLoaderInterface {
 					
 					String title = row.get("title").trim();
 					String subtitle = row.get("subtitle").trim();
-					String body = row.get("body").trim();
+					String body = "";
+					if (row.get("body") != null) {
+						body = row.get("body").trim();
+					}
 					
 					//Escribo en la base de datos
 					write(title, subtitle, body);
@@ -167,81 +170,98 @@ public class WikiAdditionalDataLoader implements DataLoaderInterface {
 		
 		/* PARA PERSONAS 
 		 * probado con Juan Domingo Perón, José de San Martín, Barack Obama, Néstor Kirchner
+		 * Lionel Messi, Diago Armando Maradona
 		 */
 		
 		subtitleSynonims.put("cónyuge", 
-				new Synonim(new String[] 
-						{"cónyuge", "esposo", "esposa", "marido", "mujer", "casar"}, "nombre"));
+				new Synonim(new String[] {"cónyuge", "esposo", "esposa", "marido", "mujer", "casar"}, "nombre"));
 		
 		subtitleSynonims.put("hijos", 
-				new Synonim(new String[] 
-						{"hijo", "hija", "descendiente", "heredero"}, "nombre"));
+				new Synonim(new String[] {"hijo", "hija", "descendiente", "heredero"}, "nombre"));
 		
 		subtitleSynonims.put("profesión", 
-				new Synonim(new String[] 
-						{"profesión", "ocupación", "empleo", "carrera", "trabajo", "trabajar", 
+				new Synonim(new String[] {"profesión", "ocupación", "empleo", "carrera", "trabajo", "trabajar", 
 								"ocupar", "dedicar", "oficio" }, "sustantivo"));
 		
 		subtitleSynonims.put("ocupación", 
-				new Synonim(new String[] 
-						{"profesión", "ocupación", "empleo", "carrera", "trabajo", "trabajar", 
+				new Synonim(new String[] {"profesión", "ocupación", "empleo", "carrera", "trabajo", "trabajar", 
 								"ocupar", "dedicar", "oficio" }, "sustantivo"));
 		
+		subtitleSynonims.put("ciudadfallecimiento", 
+				new Synonim(new String[] {"morir", "muerte", "fallecer", "fallecimiento", "sucumbir"}, "lugar"));
+		
+		subtitleSynonims.put("paisfallecimiento", 
+				new Synonim(new String[] {"morir", "muerte", "fallecer", "fallecimiento", "sucumbir"}, "lugar"));
+		
 		subtitleSynonims.put("lugarmuerte", 
-				new Synonim(new String[] 
-						{"morir", "muerte", "fallecer", "fallecimiento", "sucumbir"}, "lugar"));
+				new Synonim(new String[] {"morir", "muerte", "fallecer", "fallecimiento", "sucumbir"}, "lugar"));
 		
 		subtitleSynonims.put("fechamuerte", 
-				new Synonim(new String[] 
-						{"morir", "muerte", "fallecer", "fallecimiento", "sucumbir"}, "fecha"));
+				new Synonim(new String[] {"morir", "muerte", "fallecer", "fallecimiento", "sucumbir"}, "fecha"));
+		
+		subtitleSynonims.put("fechafallecimiento", 
+				new Synonim(new String[] {"morir", "muerte", "fallecer", "fallecimiento", "sucumbir"}, "fecha"));
 		
 		subtitleSynonims.put("lugarnac", 
-				new Synonim(new String[] 
-						{"nacer", "nacimiento"}, "lugar"));
+				new Synonim(new String[] {"nacer", "nacimiento"}, "lugar"));
+		
+		subtitleSynonims.put("ciudaddenacimiento", 
+				new Synonim(new String[] {"nacer", "nacimiento"}, "lugar"));
+		
+		subtitleSynonims.put("paisdenacimiento", 
+				new Synonim(new String[] {"nacer", "nacimiento"}, "lugar"));
 		
 		subtitleSynonims.put("fechanac", 
-				new Synonim(new String[] 
-						{"nacer", "nacimiento"}, "fecha"));
+				new Synonim(new String[] {"nacer", "nacimiento"}, "fecha"));
+		
+		subtitleSynonims.put("fechadenacimiento", 
+				new Synonim(new String[] {"nacer", "nacimiento"}, "fecha"));
 		
 		subtitleSynonims.put("nombre", 
-				new Synonim(new String[] 
-						{"nombre", "apellido", "llamar", "apellidar"}, "nombre"));
+				new Synonim(new String[] {"nombre", "apellido", "llamar", "apellidar"}, "nombre"));
 		
 		subtitleSynonims.put("título", 
-				new Synonim(new String[] 
-						{"título", "cargo", "puesto", "función"}, "sustantivo"));
+				new Synonim(new String[] {"título", "cargo", "puesto", "función"}, "sustantivo"));
 		
 		subtitleSynonims.put("cargo", 
-				new Synonim(new String[] 
-						{"título", "cargo", "puesto", "función"}, "sustantivo"));
+				new Synonim(new String[] {"título", "cargo", "puesto", "función"}, "sustantivo"));
 		
 		subtitleSynonims.put("partido", 
-				new Synonim(new String[] 
-						{"partido", "política", "político"}, "sustantivo"));
+				new Synonim(new String[] {"partido", "política", "político"}, "sustantivo"));
 		
 		subtitleSynonims.put("almamáter", 
-				new Synonim(new String[] 
-						{"almamáter", "estudiar", "educar", "formar"}, "lugar"));
+				new Synonim(new String[] {"almamáter", "estudiar", "educar", "formar", "estudio", "educación",
+								"formación"}, "lugar"));
 		
 		subtitleSynonims.put("religión", 
-				new Synonim(new String[] 
-						{"religión", "creencia", "creer", "profesar"}, "sustantivo"));
+				new Synonim(new String[] {"religión", "creencia", "creer", "profesar"}, "sustantivo"));
 		
 		subtitleSynonims.put("residencia", 
-				new Synonim(new String[] 
-						{"residencia", "residir", "vivir", "hogar", "domicilio", "habitar"}, "sustantivo"));
-	}
-	
-	
-	@SuppressWarnings("unused")
-	private static String removeUnnecessaryChars(String sentence) {
-		sentence = sentence.replaceAll("http:.*? ","");
-		sentence = sentence.replaceAll("\\<.*?\\>", "");
-		//sentence = sentence.replaceAll("[\\.\\(\\);:\\-\\/\\«\\»\\'!?¡¿\\\"]", "");
-		sentence = sentence.replaceAll("[\\.;:\\-]", " ");
-		sentence = sentence.replaceAll("[\\«\\»\\'’`¡¿\\\"]", "");
-		sentence = sentence.replaceAll("\\\\", "");
-		return sentence;
+				new Synonim(new String[] {"residencia", "residir", "vivir", "hogar", "domicilio", "habitar"}, "sustantivo"));
+		
+		subtitleSynonims.put("apodo", 
+				new Synonim(new String[] {"apodo", "apodar", "sobrenombre"}, "nombre"));
+		
+		subtitleSynonims.put("posición", 
+				new Synonim(new String[] {"posición"}, "lugar"));
+		
+		subtitleSynonims.put("club", 
+				new Synonim(new String[] {"club", "jugar"}, "lugar"));
+		
+		subtitleSynonims.put("clubdebut", 
+				new Synonim(new String[] {"club", "debut", "debutar", "jugar"}, "lugar"));
+		
+		subtitleSynonims.put("clubdebutjug", 
+				new Synonim(new String[] {"club", "debut", "debutar", "jugar"}, "lugar"));
+		
+		subtitleSynonims.put("clubretiro", 
+				new Synonim(new String[] {"club", "retiro", "retirar", "jugar"}, "lugar"));
+		
+		subtitleSynonims.put("clubretirojug", 
+				new Synonim(new String[] {"club", "retiro", "retirar", "jugar"}, "lugar"));
+		
+		subtitleSynonims.put("goles", 
+				new Synonim(new String[] {"gol", "conversión", "convertir", "anotación", "anotar"}, "cantidad"));
 	}
 	
 	

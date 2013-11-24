@@ -68,4 +68,5 @@ Eso sí puedo hacerlo .                                         = 40
 Ahí voy .                                                      = 20
 Ya lo estoy haciendo .                                         = 20
 Dame unos segundos .                                           = 20
+Por su pollo .                                                 = 5
 

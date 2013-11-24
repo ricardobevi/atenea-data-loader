@@ -29,11 +29,17 @@ public class Main {
 		// Cargo los cuadritos (info adicional) de la Wiki
 		// Es recomendable que esto se ejecute despues del WikipediaBulkLoader
 		
-		String query2 = "SELECT titulo, subtitulo, cuerpo FROM infoadicional_new "
-				+ "WHERE titulo = 'José de San Martín' ORDER BY id ASC ";
+		String query2 
+					= "SELECT titulo, subtitulo, cuerpo FROM infoadicional_new2 WHERE "
+					+ "titulo = 'José de San Martín' OR "
+					+ "titulo = 'Barack Obama' OR "
+					+ "titulo = 'Juan Domingo Perón' OR "
+					+ "titulo = 'Néstor Kirchner' OR "
+					+ "titulo = 'Lionel Messi' OR "
+					+ "titulo = 'Diego Armando Maradona' "
+					+ "ORDER BY titulo ASC ";
 		
-		new WikiAdditionalDataLoader(true, 100000).loadData(query2);
-		
+		//new WikiAdditionalDataLoader(100000).loadData(query2);
 		
 		NeuralDataAccess.init();
 		try {
@@ -45,12 +51,6 @@ public class Main {
 		
 		System.exit(0);
 		
-		/*
-		String str = "hola 100. hola 1000 sisi. 2.000 si s«eñor. ";
-		String[] array = str.split("\\.[a-zA-Z| ]");
-		for (String s : array) {
-			System.out.println(s.replaceAll("[\\«\\»]", ""));
-		}*/
 	}
 	
 }

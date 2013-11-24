@@ -19,6 +19,7 @@ Desconozco eso que me preguntas .                               = 10
 Desconozco sobre ese tema .                                     = 20
 Aún no tengo información sobre ese tema .                       = 50
 No encuentro respuesta a lo que preguntas .                     = 50
+Sólo sé que no se nada .                                        = 5
 Disculpa , no tengo información sobre el tema .                 = 100
 
 
