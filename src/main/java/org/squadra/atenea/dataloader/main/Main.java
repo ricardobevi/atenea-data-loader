@@ -6,11 +6,12 @@ import org.squadra.atenea.data.server.NeuralDataAccess;
 import org.squadra.atenea.dataloader.DialogLoader;
 import org.squadra.atenea.dataloader.WikiAdditionalDataLoader;
 import org.squadra.atenea.dataloader.WikipediaBulkLoader;
+import org.squadra.atenea.dataloader.WikiConceptLoader;
 
 public class Main {
 
 	public static void main(String args[]) {
-		/*
+		
 		// Cargo las respuestas a dialogos
 		new DialogLoader(true, "dialogType", 0).loadData("./AteneaDialogResponses.txt");
 		
@@ -22,9 +23,8 @@ public class Main {
 		
 		// Cargo las respuestas de la Wiki
 		String query = "SELECT cuerpo FROM articulo WHERE titulo = 'José de San Martín' ORDER BY id ASC ";
+		//new WikipediaBulkLoader(true, 2000).loadData(query);
 		
-		new WikipediaBulkLoader(true, 2000).loadData(query);
-		*/
 		
 		// Cargo los cuadritos (info adicional) de la Wiki
 		// Es recomendable que esto se ejecute despues del WikipediaBulkLoader
@@ -39,7 +39,32 @@ public class Main {
 					+ "titulo = 'Diego Armando Maradona' "
 					+ "ORDER BY titulo ASC ";
 		
-		//new WikiAdditionalDataLoader(100000).loadData(query2);
+		new WikiAdditionalDataLoader(100000).loadData(query2);
+		
+		/*new WikiConceptLoader().loadData(
+				"select titulo, subtitulo, sentence "
+				+ "from sentencescase as S join articulo as A ON S.id = A.id "
+				+ "where A.titulo IN ( "
+				+ "'José de San Martín')"
+				);
+				
+				+ "'Misiones jesuíticas guaraníes',"
+				+ "'Virreinato del Río de la Plata',"
+				+ "'Argentina',"
+				+ "'Juan de San Martín',"
+				+ "'María de los Remedios de Escalada',"
+				+ "'Buenos Aires',"
+				+ "'Londres',"
+				+ "'Combate de San Lorenzo',"
+				+ "'Ejército del Norte (Provincias Unidas del Río de la Plata)',"
+				+ "'Ejército de los Andes',"
+				+ "'Independencia de Chile',"
+				+ "'Expedición Libertadora del Perú',"
+				+ "'Simón Bolívar',"
+				+ "'París',"
+				+ "'Francmasonería'"
+				+ ")"
+				);*/
 		
 		NeuralDataAccess.init();
 		try {
