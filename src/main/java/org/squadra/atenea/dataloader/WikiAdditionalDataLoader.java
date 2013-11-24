@@ -237,13 +237,13 @@ public class WikiAdditionalDataLoader implements DataLoaderInterface {
 				new Synonim(new String[] {"religión", "creencia", "creer", "profesar"}, "sustantivo"));
 		
 		subtitleSynonims.put("residencia", 
-				new Synonim(new String[] {"residencia", "residir", "vivir", "hogar", "domicilio", "habitar"}, "sustantivo"));
+				new Synonim(new String[] {"residencia", "residir", "vivir", "hogar", "domicilio", "habitar"}, "lugar"));
 		
 		subtitleSynonims.put("apodo", 
-				new Synonim(new String[] {"apodo", "apodar", "sobrenombre"}, "nombre"));
+				new Synonim(new String[] {"apodo", "apodar", "sobrenombre"}, "sustantivo"));
 		
 		subtitleSynonims.put("posición", 
-				new Synonim(new String[] {"posición"}, "lugar"));
+				new Synonim(new String[] {"posición"}, "sustantivo"));
 		
 		subtitleSynonims.put("club", 
 				new Synonim(new String[] {"club", "jugar"}, "lugar"));

@@ -70,12 +70,46 @@ Todo bien ?                                     = 30 30 30 30 30
 Todo en orden ?                                 = 40 40 40 40 40
 Todo tranquilo ?                                = 10 10 10 10 10
 Todo piola ?                                    =  0  0 10 10  0
-Qué hacés ?                                     =  0 10 20 10  0
 Qué contás ?                                    =  0 10 20 10  0
 Qué cuentas ?                                   =  0 10 20 10  0
 Qué acelga ?                                    =  0 10 10 10  0
 Qué onda ?                                      =  0 10 20 10  0
 Cómo estuvo tu día ?                            =  0  0  0 60 40
+Hola cómo estás ?                               =  0  0  0  0  0
+Hola cómo va ?                                  =  0  0  0  0  0
+Hola cómo andás ?                               =  0  0  0  0  0
+Hola que hacés ?                                =  0  0  0  0  0
+Hola cómo te va ?                               =  0  0  0  0  0
+Hola que tal ?                                  =  0  0  0  0  0
+Hola que onda ?                                 =  0  0  0  0  0
+Buen día cómo estás ?                           =  0  0  0  0  0
+Buen día cómo va ?                              =  0  0  0  0  0
+Buen día cómo andás ?                           =  0  0  0  0  0
+Buen día que hacés ?                            =  0  0  0  0  0
+Buen día cómo te va ?                           =  0  0  0  0  0
+Buen día que tal ?                              =  0  0  0  0  0
+Buen día que onda ?                             =  0  0  0  0  0
+Buenas tardes cómo estás ?                      =  0  0  0  0  0
+Buenas tardes cómo va ?                         =  0  0  0  0  0
+Buenas tardes cómo andás ?                      =  0  0  0  0  0
+Buenas tardes que hacés ?                       =  0  0  0  0  0
+Buenas tardes cómo te va ?                      =  0  0  0  0  0
+Buenas tardes que tal ?                         =  0  0  0  0  0
+Buenas tardes que onda ?                        =  0  0  0  0  0
+Buenas noches cómo estás ?                      =  0  0  0  0  0
+Buenas noches cómo va ?                         =  0  0  0  0  0
+Buenas noches cómo andás ?                      =  0  0  0  0  0
+Buenas noches que hacés ?                       =  0  0  0  0  0
+Buenas noches cómo te va ?                      =  0  0  0  0  0
+Buenas noches que tal ?                         =  0  0  0  0  0
+Buenas noches que onda ?                        =  0  0  0  0  0
+Buenos días cómo estás ?                        =  0  0  0  0  0
+Buenos días cómo va ?                           =  0  0  0  0  0
+Buenos días cómo andás ?                        =  0  0  0  0  0
+Buenos días que hacés ?                         =  0  0  0  0  0
+Buenos días cómo te va ?                        =  0  0  0  0  0
+Buenos días que tal ?                           =  0  0  0  0  0
+Buenos días que onda ?                          =  0  0  0  0  0
 
 
 ################################################################
@@ -228,6 +262,19 @@ Apenas tengo %edad% .                           = 20 20 20 20 20
 Apenas tengo %edad% de edad .                   = 20 20 20 20 20
 Tan solo %edad% .                               = 20 20 20 20 20
 Tan solo %edad% de edad .                       = 10 10 10 10 10
+
+
+################################################################
+
+$_PREGUNTA_QUE_HACES
+
+Qué hacés ?                                     = 10 10 10 10 10
+Qué hacías ?                                    = 10 10 10 10 10
+En qué andás ?                                  = 10 10 10 10 10
+Qué estás haciendo ?                            = 10 10 10 10 10
+Qué andás haciendo ?                            = 10 10 10 10 10
+Qué estabas haciendo ?                          = 10 10 10 10 10
+Qué andabas haciendo ?                          = 10 10 10 10 10
 
 
 ################################################################
