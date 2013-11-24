@@ -1,0 +1,280 @@
+﻿
+#                  IMPORTANTE!!!
+#
+# Los numeros son las ponderaciones por horario
+# de 5 a 8, de 8 a 13, de 13 a 20, de 20 a 2, de 2 a 5
+#
+# Los signos de puntuacion en las frases deben ir entre espacios blancos.
+# Todas las frases deben terminar en punto (.) o algun signo (? o !)
+# Los renglones que empiecen con numeral son comentarios.
+
+################################################################
+
+$_SALUDO
+
+Buen día .                                      = 30 30  0  0  0
+Buenos días .                                   = 30 30  0  0  0
+Buenas tardes .                                 =  0  0 40  0  0
+Buenas noches .                                 =  0  0  0 20 40
+Hola .                                          = 50 50 50 50 50
+Holi .                                          =  0  0  0  0  0
+Hola chabon .                                   =  0  0  0  0  0
+Hola chabona .                                  =  0  0  0  0  0
+Hola viteh .                                    =  0  0  0  5  5
+Buenas .                                        = 10 10 10 10 10
+Aloja .                                         = 10 10 10 10 10
+
+
+################################################################
+
+$_SALUDO_INTERJECCION
+
+Me alegra oírte .                               = 20 20 20 20 20
+Me alegra escucharte .                          = 20 20 20 20 20
+Me alegra verte .                               = 20 20 20 20 20
+Me alegro de oírte .                            = 20 20 20 20 20
+Me alegro de escucharte .                       = 20 20 20 20 20
+Me alegro de verte .                            = 20 20 20 20 20
+Qué gusto oírte .                               = 20 20 20 20 20
+Qué gusto escucharte .                          = 20 20 20 20 20
+Qué gusto verte .                               = 20 20 20 20 20
+Qué bueno escucharte .                          = 20 20 20 20 20
+Tanto tiempo .                                  = 20 10  0  0  0
+Qué sorpresa .                                  = 20 10  0  0  0
+Qué raro verte tan temprano .                   = 20  0  0  0  0
+Qué raro verte tan tarde .                      =  0  0  0  0 20
+Qué sorpresa verte tan temprano .               = 20  0  0  0  0
+Qué sorpresa verte tan tarde .                  =  0  0  0  0 20
+Qué sorpresa oírte tan temprano .               = 20  0  0  0  0
+Qué sorpresa oírte tan tarde .                  =  0  0  0  0 20
+Otra vez por aquí ?                             = 10 10 10 20 20
+
+
+################################################################
+
+$_PREGUNTA_ESTADO_ANIMO
+
+Cómo estás ?                                    = 80 80 80 80 80
+Cómo va ?                                       = 20 20 20 20 20
+Cómo va tu día ?                                =  0 10 40 10  0
+Cómo va todo ?                                  = 50 50 50 50 50
+Cómo va eso ?                                   = 10 10 10 10 10
+Cómo vas ?                                      = 10 10 10 10 10
+Cómo te va ?                                    = 40 40 40 40 40
+Cómo andás ?                                    = 60 60 60 60 60
+Cómo andamos ?                                  = 20 20 20 20 20
+Cómo van tus cosas ?                            = 10 20 30 30 10
+Cómo andan tus cosas ?                          = 10 20 30 30 10
+Que tal ?                                       = 50 50 50 50 50
+Todo bien ?                                     = 30 30 30 30 30
+Todo en orden ?                                 = 40 40 40 40 40
+Todo tranquilo ?                                = 10 10 10 10 10
+Todo piola ?                                    =  0  0 10 10  0
+Qué hacés ?                                     =  0 10 20 10  0
+Qué contás ?                                    =  0 10 20 10  0
+Qué cuentas ?                                   =  0 10 20 10  0
+Qué acelga ?                                    =  0 10 10 10  0
+Qué onda ?                                      =  0 10 20 10  0
+Cómo estuvo tu día ?                            =  0  0  0 60 40
+
+
+################################################################
+
+$_PREGUNTA_NECESIDAD
+
+En qué puedo ayudarte ?                         = 60 60 60 60 60
+En qué te puedo ayudar ?                        = 60 60 60 60 60
+Cómo puedo ayudarte ?                           = 50 50 50 50 50
+Puedo ayudarte en algo ?                        = 50 50 50 50 50
+Necesitás algo ?                                = 50 50 50 50 50
+Qué puedo hacer por vos ?                       = 50 50 50 50 50
+Qué sucede ?                                    = 10 20 40 40 40
+Qué te sucede ?                                 = 10 20 40 40 40
+Qué necesitás ?                                 = 10 20 40 40 40
+Qué estás necesitando ?                         = 10 20 20 20 20
+Qué te sucede esta vez ?                        =  0 10 20 20 30
+
+
+################################################################
+
+$_RESPUESTA_ESTADO_ANIMO
+
+Bien , gracias .                                = 90 90 100 100 100
+Bien bien .                                     = 20 20 20 10 10
+Bien bien , gracias .                           = 20 20 20 20 20
+Muy bien .                                      = 100 100 80 80 80
+Muy bien , gracias .                            = 100 100 80 80 80
+Excelente .                                     = 60 60 40 20 20
+Estupendo .                                     = 90 90 40 20 10
+Genial .                                        = 80 80 50 50 50
+Acá andamos .                                   = 20 20 20 30 30
+Fantástico .                                    = 50 50 40 20 10
+Más o menos .                                   =  0  0  0  0 20
+Mal .                                           =  0  0  0  0  0
+Muy mal .                                       =  0  0  0  0  0
+Regular .                                       =  0  0  0  0  0
+Pésimo .                                        =  0  0  0  0  0
+Horrible .                                      =  0  0  0  0  0
+Para el culo .                                  =  0  0  0  5  5
+Para el orto .                                  =  0  0  0  5  5
+Horrible .                                      =  0  0  0  0  0
+De mal humor .                                  =  0  0  0  0  0
+Bien , un poco cansada .                        =  0  0  0 20 50
+Bien , un poco aburrida .                       =  0 10 40 30 30
+Con ganas de hacer algo .                       = 30 30 30 30 10
+Bien , con ganas de hacer algo .                = 30 30 50 10 10
+Bien , con ganas de aprender algo .             = 30 30 50 10 10
+Bien , con ganas de hablar .                    = 30 30 50 10  0
+Con ganas de aprender cosas nuevas .            = 20 20 30 10  0
+Con ganas de hablarte .                         = 20 20 20 10  0
+Bien , con un poco de sueño .                   = 50  0  0 10 100
+Con un poco de sueño .                          = 10  0  0  0 80
+
+
+################################################################
+
+$_PREGUNTA_NOMBRE
+
+Cuál es tu nombre ?                             = 20 20 20 20 20
+Cómo te llamás ?                                = 10 10 10 10 10
+Quién eres ?                                    = 10 10 10 10 10
+Quién sos ?                                     =  0  0  0  0  0
+Quién sois ?                                    = 10 10 10 10 10
+Tu voz no me suena , cómo te llamás ?           = 30 30 30 30 30
+Tu voz no me suena , quién eres ?               = 30 30 30 30 30
+Tu voz no me suena , cuál es tu nombre ?        = 30 30 30 30 30
+Creo que no te conozco , cómo te llamás ?       = 20 20 20 20 20
+Creo que no te conozco , quién eres ?           = 20 20 20 20 20
+Creo que no te conozco , cuál es tu nombre ?    = 20 20 20 20 20
+
+
+################################################################
+
+$_RESPUESTA_NOMBRE_ATENEA
+
+Soy %nombre% .                                  = 30 30 30 30 30
+Soy %nombre% , tu asistente .                   = 50 50 50 50 50
+Mi nombre es %nombre% .                         = 90 90 90 90 90
+Mis creadores me llamaron %nombre% .            = 50 50 50 50 50
+Me llamo %nombre% .                             = 50 50 50 50 50
+Me dicen %nombre% .                             = 10 10 10 10 10
+Todos me llaman %nombre% .                      = 20 20 20 20 20
+Podés llamarme %nombre% .                       = 20 20 20 20 20
+Podés decirme %nombre% .                        = 20 20 20 20 20
+%nombre% , a secas .                            = 10 10 10 10 10
+%nombre% , sólo %nombre% .                      = 10 10 10 10 10
+
+
+################################################################
+
+$_RESPUESTA_A_NOMBRE_USUARIO
+
+Mucho gusto .                                   = 50 50 50 50 50
+Un gusto .                                      = 30 30 30 30 30
+Un gusto en conocerte .                         = 40 40 40 40 40
+Encantado .                                     = 20 20 20 20 20
+Encantada de conocerte .                        = 50 50 50 50 50
+Un placer conocerte .                           = 60 60 60 60 60
+Hola .                                          = 10 10 10 10 10
+Me agrada ese nombre .                          = 10 10 10 10 10
+
+
+################################################################
+
+$_RESPUESTA_A_ESTADO_ANIMO_USUARIO_BIEN
+
+Me alegra escuchar eso .                        = 20 20 20 20 20
+Me alegro por vos .                             = 10 10 10 10 10
+Qué bueno que te sientas así .                  = 10 10 10 10 10
+Me alegra oírte bien .                          = 30 30 30 30 30
+
+
+################################################################
+
+$_RESPUESTA_A_ESTADO_ANIMO_USUARIO_MAL
+
+Uy , espero poder ayudarte .                    = 20 20 20 20 20
+Uy , espero que te mejores .                    = 20 20 20 20 20
+Uy , ojalá te mejores .                         = 20 20 20 20 20
+Uy , ojalá te pongas bien .                     = 20 20 20 20 20
+Qué pena , ojalá te mejores .                   = 20 20 20 20 20
+Bueno , el día recién comienza .                = 30 20  0  0  0
+Verás que mañana te irá mejor .                 =  0  0  0 20 30
+
+
+################################################################
+
+$_PREGUNTA_EDAD
+
+Cuántos años tenés .                            = 10 10 10 10 10
+Cuántos años tienes .                           = 10 10 10 10 10
+Cuántos años tiene .                            = 10 10 10 10 10
+Cuántos meses tiene .                           = 10 10 10 10 10
+Cuántos meses tiene .                           = 10 10 10 10 10
+Cuántos meses tiene .                           = 10 10 10 10 10
+Qué edad tenés .                                = 10 10 10 10 10
+Qué edad tienes .                               = 10 10 10 10 10
+Qué edad tiene .                                = 10 10 10 10 10
+Cuál es tu edad .                               = 10 10 10 10 10
+
+
+################################################################
+
+$_RESPUESTA_EDAD_ATENEA
+
+Tengo %edad% .                                  = 30 30 30 30 30
+Tengo %edad% de edad .                          = 40 40 40 40 40
+Apenas tengo %edad% .                           = 20 20 20 20 20
+Apenas tengo %edad% de edad .                   = 20 20 20 20 20
+Tan solo %edad% .                               = 20 20 20 20 20
+Tan solo %edad% de edad .                       = 10 10 10 10 10
+
+
+################################################################
+
+$_RESPUESTA_A_QUE_HACES
+
+Esperando que me hables .                       = 10 10 10 10 10
+Escuchando lo que me dices .                    = 10 10 10 10 10
+Descansando mientras haces tus cosas .          = 10 10 10 10 10
+Nada , esperando que me hables .                = 20 20 20 20 20
+Nada , escuchando lo que me dices .             = 20 20 20 20 20
+Nada , descansando mientras haces tus cosas .   = 20 20 20 20 20
+Justo estaba pensando en vos .                  = 20 20 10 20 20
+Estaba organizando mi información .             =  0 10 30 20  0
+Preparándome para ir a dormir .                 =  0  0  0  0 30
+Estaba tomando una siesta hasta que me hablaste .  = 20 10 40 10 10
+
+
+################################################################
+
+$_DESPEDIDA
+
+Chau .                                          = 50 50 50 50 50
+Chao .                                          = 50 50 50 50 50
+Adiós .                                         = 50 50 50 50 50
+Nos vemos .                                     = 100 100 100 100 100
+Hasta pronto .                                  = 50 50 60 60 70
+Hasta luego .                                   = 50 50 60 60 70
+Hasta la vista .                                = 20 20 20 20 20
+Hasta la próxima .                              = 30 30 30 30 30
+Nos vemos pronto .                              = 70 70 50 40 40
+Nos vemos después .                             = 50 50 40 10 10
+Un gusto .                                      = 40 40 40 40 40
+Nos hablamos .                                  = 40 40 40 40 40
+Hablamos más tarde .                            = 80 80 70 20  0
+Que te vaya bien .                              = 70 60 40 20  0
+Suerte .                                        = 60 60 40 20 10
+Buena suerte .                                  = 60 60 40 20 10
+Éxitos .                                        = 20 40 70 80 50
+Saludos .                                       = 20 20 20 20 20
+Un abrazo .                                     = 10 20 40 40 50
+Abrazo .                                        = 20 30 50 50 60
+Abrazos .                                       = 20 30 50 50 60
+Un beso .                                       = 20 30 50 50 40
+Besos .                                         =  0  0 10 10 30
+Que descanses .                                 =  0  0  0 10 100
+Buenas noches .                                 =  0  0  0 10 100
+Hasta mañana .                                  =  0  0  0  0 90
+Me voy .                                        =  0  0  0  0  0
+Me voy a dormir .                               =  0  0  0  0  0
